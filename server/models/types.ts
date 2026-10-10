@@ -14,6 +14,8 @@ export interface IUser {
   createdAt: string;
   updatedAt: string;
   lastLoginAt?: string;
+  gender?: string;
+  profilePic?: string;
 }
 
 export interface IPatientProfile {

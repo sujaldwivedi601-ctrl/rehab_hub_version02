@@ -96,7 +96,9 @@ async function startServer() {
     }
 
     app.listen(port, '0.0.0.0', () => {
-      console.log(`NeuroRehab Connect server listening on http://0.0.0.0:${port}`);
+      console.log(`\n  ➜ Local:   http://localhost:${port}/`);
+      console.log(`  ➜ Network: http://0.0.0.0:${port}/`);
+      console.log(`  ➜ Health:  http://localhost:${port}/api/health\n`);
     });
   } catch (err) {
     console.error('Failed to start server:', err);

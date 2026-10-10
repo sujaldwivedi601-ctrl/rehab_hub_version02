@@ -318,7 +318,7 @@ export const AuthController = {
   // POST /api/v1/auth/register-doctor
   async registerDoctor(req: Request, res: Response): Promise<void> {
     try {
-      const { name, email, password, specialty, hospital, licenseNumber, phone } = req.body;
+      const { name, email, password, specialty, hospital, licenseNumber, phone, gender } = req.body;
       if (!name || !email || !password) {
         res.status(400).json({ error: 'Bad Request', message: 'Doctor name, email, and password are required' });
         return;
@@ -331,13 +331,17 @@ export const AuthController = {
       }
 
       const passwordHash = await hashPassword(password);
+      const profilePic = gender === 'Male' ? '/doctor-male.png' : '/doctor-female.png';
+      
       const user = await UserRepository.create({
         name,
         email,
         passwordHash,
         role: 'doctor',
         accountStatus: 'active',
-      });
+        gender: gender || 'Other',
+        profilePic: profilePic,
+      } as any);
 
       const accessToken = generateAccessToken(user);
       const rawRefreshToken = generateRefreshTokenString();
@@ -368,6 +372,8 @@ export const AuthController = {
           hospital: hospital || 'Clinical Neurology Center',
           licenseNumber: licenseNumber || 'LIC-2026-MD',
           phone: phone || '',
+          gender: user.gender,
+          profilePic: user.profilePic,
         },
       });
     } catch (err: any) {

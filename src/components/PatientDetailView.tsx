@@ -203,7 +203,7 @@ export function PatientDetailView({ patientData, onRefresh, onDeletePatient }: P
               <img
                 src={
                   profile?.profilePhotoUrl ||
-                  'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80'
+                  '/patient-default.png'
                 }
                 alt={user.name}
                 className="w-20 h-20 rounded-2xl object-cover ring-4 ring-emerald-500/20 shadow-md"
@@ -702,7 +702,7 @@ export function PatientDetailView({ patientData, onRefresh, onDeletePatient }: P
           <div className="flex flex-col sm:flex-row items-center gap-6 p-6 bg-slate-50 rounded-2xl border border-slate-200">
             <div className="relative">
               <img
-                src={profile?.profilePhotoUrl || 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80'}
+                src={profile?.profilePhotoUrl || '/patient-default.png'}
                 alt={user.name}
                 className="w-32 h-32 rounded-2xl object-cover ring-4 ring-emerald-500 shadow-md"
               />

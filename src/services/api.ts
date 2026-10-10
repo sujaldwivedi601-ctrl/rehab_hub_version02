@@ -11,6 +11,8 @@ export interface DoctorUser {
   licenseNumber?: string;
   phone?: string;
   lastLoginAt?: string;
+  gender?: string;
+  profilePic?: string;
 }
 
 export class ApiService {
@@ -127,6 +129,7 @@ export class ApiService {
     hospital?: string;
     licenseNumber?: string;
     phone?: string;
+    gender?: string;
   }) {
     const res = await fetch(`${API_BASE}/auth/register-doctor`, {
       method: 'POST',

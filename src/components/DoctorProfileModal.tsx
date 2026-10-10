@@ -98,10 +98,17 @@ export function DoctorProfileModal({ isOpen, doctor, onClose, onUpdate, onLogout
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs overflow-y-auto">
       <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-lg overflow-hidden animate-in fade-in zoom-in-95 duration-150 my-6">
         {/* Header */}
-        <div className="bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 px-6 py-5 text-white flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-xl bg-white/10 flex items-center justify-center text-white border border-white/20">
-              <Stethoscope className="w-6 h-6" />
+        <div 
+          className="relative px-6 py-5 text-white flex items-center justify-between"
+          style={{ backgroundImage: 'linear-gradient(to right, rgba(15, 23, 42, 0.8), rgba(30, 58, 138, 0.7)), url(/doctor-bg.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}
+        >
+          <div className="relative z-10 flex items-center gap-3">
+            <div className="w-11 h-11 rounded-xl bg-white/10 flex items-center justify-center text-white border border-white/20 overflow-hidden shrink-0">
+              {doctor.profilePic ? (
+                <img src={doctor.profilePic} alt="Profile" className="w-full h-full object-cover" />
+              ) : (
+                <Stethoscope className="w-6 h-6" />
+              )}
             </div>
             <div>
               <h2 className="text-lg font-bold">Doctor Profile & Credentials</h2>
@@ -110,7 +117,7 @@ export function DoctorProfileModal({ isOpen, doctor, onClose, onUpdate, onLogout
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white transition cursor-pointer"
+            className="relative z-10 p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>

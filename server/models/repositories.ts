@@ -42,6 +42,8 @@ export const UserRepository = {
       createdAt: now,
       updatedAt: now,
       lastLoginAt: data.lastLoginAt,
+      gender: data.gender,
+      profilePic: data.profilePic,
     };
     dbStore.getState().users.push(newUser);
     dbStore.saveToFile();

@@ -290,7 +290,7 @@ export function DoctorDashboard({
                 const isSelected = selectedPatientId === p.user?._id;
                 const photo =
                   p.profile?.profilePhotoUrl ||
-                  'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80';
+                  '/patient-default.png';
 
                 return (
                   <button

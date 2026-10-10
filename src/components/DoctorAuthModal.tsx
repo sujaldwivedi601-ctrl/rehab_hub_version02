@@ -41,6 +41,7 @@ export function DoctorAuthModal({ isOpen, onSuccess, onClose, initialMode = 'log
   const [regPassword, setRegPassword] = useState('');
   const [regSpecialty, setRegSpecialty] = useState('');
   const [regHospital, setRegHospital] = useState('');
+  const [regGender, setRegGender] = useState('Male');
 
   if (!isOpen) return null;
 
@@ -97,6 +98,7 @@ export function DoctorAuthModal({ isOpen, onSuccess, onClose, initialMode = 'log
         hospital: regHospital.trim() || 'General Hospital',
         licenseNumber: '',
         phone: '',
+        gender: regGender,
       });
       onSuccess(res.user);
     } catch (err: any) {
@@ -309,28 +311,6 @@ export function DoctorAuthModal({ isOpen, onSuccess, onClose, initialMode = 'log
                 )}
               </button>
 
-              <div className="flex items-center gap-3 my-1">
-                <div className="flex-1 h-px bg-slate-200" />
-                <span className="text-xs text-slate-400">or use demo</span>
-                <div className="flex-1 h-px bg-slate-200" />
-              </div>
-
-              <button
-                type="button"
-                onClick={handleQuickDemoLogin}
-                disabled={loading}
-                id="demo-login"
-                className="w-full py-2.5 px-4 bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 rounded-xl text-xs text-slate-600 hover:text-blue-700 transition-all flex items-center justify-center gap-2 font-medium"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-blue-500" />
-                Quick Demo — <strong className="text-blue-700">Dr. Sarah Chen, MD</strong>
-              </button>
-
-              <div className="rounded-xl bg-blue-50 border border-blue-100 p-3 mt-1">
-                <p className="text-xs text-blue-700 font-semibold mb-1">Demo credentials</p>
-                <p className="text-xs text-blue-600 font-mono">doctor.chen@neurorehab-connect.health</p>
-                <p className="text-xs text-blue-600 font-mono">Password123!</p>
-              </div>
 
               <p className="text-center text-xs text-slate-500 pt-1">
                 No account?{' '}
@@ -438,6 +418,23 @@ export function DoctorAuthModal({ isOpen, onSuccess, onClose, initialMode = 'log
                       {showRegPw ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
                   </div>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-slate-600 mb-1.5">Gender</label>
+                <div className="relative">
+                  <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <select
+                    id="reg-gender"
+                    value={regGender}
+                    onChange={(e) => setRegGender(e.target.value)}
+                    className="w-full pl-10 pr-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-slate-700 appearance-none cursor-pointer"
+                  >
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </select>
                 </div>
               </div>
 

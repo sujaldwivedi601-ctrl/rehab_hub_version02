@@ -93,9 +93,13 @@ export function Navbar({
                     onClick={() => setDoctorDropdownOpen(!doctorDropdownOpen)}
                     className="flex items-center gap-2.5 pl-2 pr-3 py-1.5 rounded-xl border border-slate-200 hover:bg-slate-50 transition cursor-pointer text-left"
                   >
-                    <div className="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xs shrink-0">
-                      <Stethoscope className="w-4 h-4" />
-                    </div>
+                    {doctor.profilePic ? (
+                      <img src={doctor.profilePic} alt="Profile" className="w-8 h-8 rounded-lg object-cover shrink-0 border border-slate-200" />
+                    ) : (
+                      <div className="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xs shrink-0">
+                        <Stethoscope className="w-4 h-4" />
+                      </div>
+                    )}
                     <div className="text-left hidden lg:block">
                       <div className="text-xs font-bold text-slate-900 leading-tight">{doctor.name}</div>
                       <div className="text-[10px] text-slate-500 leading-tight truncate max-w-[130px]">

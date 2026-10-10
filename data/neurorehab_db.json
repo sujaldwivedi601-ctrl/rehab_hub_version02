@@ -9,20 +9,8 @@
       "accountStatus": "active",
       "mustChangePassword": false,
       "createdAt": "2026-10-09T14:49:50.628Z",
-      "updatedAt": "2026-10-10T08:59:32.082Z",
-      "lastLoginAt": "2026-10-10T08:59:32.082Z"
-    },
-    {
-      "_id": "usr_alex_rivera",
-      "name": "Alex Rivera",
-      "email": "alex.rivera@patient.neurorehab.health",
-      "passwordHash": "$2b$10$Uyt2QXeHXtPtYYEwOdZzqOLFRxU4Z1sU5/kPPkJcNfROkAQIop0qa",
-      "role": "patient",
-      "accountStatus": "active",
-      "mustChangePassword": false,
-      "createdAt": "2026-10-09T14:49:50.629Z",
-      "updatedAt": "2026-10-10T02:09:15.083Z",
-      "lastLoginAt": "2026-10-10T02:09:15.083Z"
+      "updatedAt": "2026-10-10T14:45:44.917Z",
+      "lastLoginAt": "2026-10-10T14:45:44.916Z"
     },
     {
       "_id": "usr_maya_lin",
@@ -71,7 +59,8 @@
       "accountStatus": "active",
       "mustChangePassword": false,
       "createdAt": "2026-10-10T11:13:58.402Z",
-      "updatedAt": "2026-10-10T11:15:37.351Z"
+      "updatedAt": "2026-10-10T14:55:12.184Z",
+      "lastLoginAt": "2026-10-10T14:55:12.184Z"
     },
     {
       "_id": "usr_40cd9b1201ab",
@@ -85,25 +74,21 @@
       "activationCodeExpiresAt": "2026-10-24T11:27:25.001Z",
       "createdAt": "2026-10-10T11:27:25.001Z",
       "updatedAt": "2026-10-10T11:27:25.001Z"
+    },
+    {
+      "_id": "usr_24401e73d1d5",
+      "name": "Dr. Riya Kewt",
+      "email": "riyakewt@gmail.com",
+      "passwordHash": "$2b$12$zXeek9ZKTznV/1FdvnZEzuUWyznNfuhBmRwwIagtl2ryDld7uSwvi",
+      "role": "doctor",
+      "accountStatus": "active",
+      "mustChangePassword": false,
+      "createdAt": "2026-10-10T15:46:27.581Z",
+      "updatedAt": "2026-10-10T15:47:02.763Z",
+      "lastLoginAt": "2026-10-10T15:47:02.763Z"
     }
   ],
   "patientProfiles": [
-    {
-      "_id": "prof_fcd32d9a432c",
-      "patientId": "usr_alex_rivera",
-      "mrn": "MRN-482019",
-      "assignedDoctorIds": [
-        "doc_sarah_chen"
-      ],
-      "preferredLanguage": "en",
-      "dateOfBirth": "1974-06-15",
-      "emergencyContactName": "Elena Rivera",
-      "emergencyContactPhone": "+1-555-019-2834",
-      "primaryDiagnosis": "Right Hemiparesis / Post-MCA Ischemic Stroke (Month 3)",
-      "clinicalNotes": "Demonstrating consistent proximal shoulder recovery. Target active flexion >120 degrees without scapular compensation.",
-      "createdAt": "2026-10-09T14:49:50.629Z",
-      "updatedAt": "2026-10-09T14:49:50.629Z"
-    },
     {
       "_id": "prof_2b0cd4b0df25",
       "patientId": "usr_maya_lin",
@@ -171,7 +156,7 @@
       "preferredLanguage": "en",
       "dateOfBirth": "1980-01-01",
       "gender": "unspecified",
-      "faceVerificationEnrolled": false,
+      "faceVerificationEnrolled": true,
       "primaryDiagnosis": "Rehabilitation Protocol",
       "clinicalNotes": "6-Digit ID: 459107. Diet: High protein, anti-inflammatory. Include wild salmon, walnuts, and blueberries.",
       "dietaryPlan": {
@@ -182,142 +167,11 @@
         "foodsToAvoid": []
       },
       "createdAt": "2026-10-10T11:27:25.023Z",
-      "updatedAt": "2026-10-10T11:27:25.023Z"
+      "updatedAt": "2026-10-10T15:22:23.858Z",
+      "profilePhotoUrl": "https://i.pinimg.com/736x/d1/8f/c5/d18fc51030fa273f0ca53e1cab27464e.jpg"
     }
   ],
   "rehabilitationPlans": [
-    {
-      "_id": "plan_7bd336a69b79",
-      "planId": "PLN-ALEX-2026-V2",
-      "patientId": "usr_alex_rivera",
-      "assignedByDoctorId": "doc_sarah_chen",
-      "title": "Phase II Upper Limb Motor Recovery & Cognitive Protocol",
-      "version": 6,
-      "status": "active",
-      "startDate": "2026-09-25T14:49:50.630Z",
-      "clinicalGoals": [
-        "Elevate active shoulder flexion past 120 degrees without trunk tilt",
-        "Improve cognitive working memory score to >80% accuracy",
-        "Achieve daily compliance of 2 arm raise sessions and 1 cognitive challenge"
-      ],
-      "activities": [
-        {
-          "activityId": "act_arm_raise_alex",
-          "activityType": "physical_exercise",
-          "activityName": "Arm Raise (Anterior Deltoid & Flexion)",
-          "exerciseId": "arm_raise",
-          "configuration": {
-            "targetRepetitions": 12,
-            "targetRomMinAngle": 15,
-            "targetRomMaxAngle": 120,
-            "targetDurationSeconds": 180,
-            "cadenceRepsPerMin": 10,
-            "cameraOrientation": "portrait",
-            "instructions": "Face the camera in a seated or standing position. Smoothly raise your affected arm upwards while keeping your spine straight."
-          },
-          "scheduledDays": [
-            "monday",
-            "tuesday",
-            "wednesday",
-            "thursday",
-            "friday"
-          ],
-          "frequencyPerDay": 2,
-          "startDate": "2026-09-25T14:49:50.630Z",
-          "status": "active"
-        },
-        {
-          "activityId": "act_memory_alex",
-          "activityType": "cognitive_game",
-          "activityName": "Memory Match (Working Memory)",
-          "gameId": "memory_match",
-          "configuration": {
-            "difficulty": "medium",
-            "cognitiveDomain": "working_memory",
-            "targetDurationSeconds": 120,
-            "instructions": "Uncover paired clinical symbols to challenge short-term visual working memory."
-          },
-          "scheduledDays": [
-            "monday",
-            "wednesday",
-            "friday"
-          ],
-          "frequencyPerDay": 1,
-          "startDate": "2026-09-25T14:49:50.630Z",
-          "status": "active"
-        },
-        {
-          "activityId": "act_reaction_alex",
-          "activityType": "cognitive_game",
-          "activityName": "Reaction Time (Processing Speed)",
-          "gameId": "reaction_time",
-          "configuration": {
-            "difficulty": "medium",
-            "cognitiveDomain": "processing_speed",
-            "targetDurationSeconds": 60,
-            "instructions": "Tap the target stimulus as quickly as possible upon visual cues."
-          },
-          "scheduledDays": [
-            "tuesday",
-            "thursday"
-          ],
-          "frequencyPerDay": 1,
-          "startDate": "2026-09-25T14:49:50.630Z",
-          "status": "active"
-        },
-        {
-          "activityId": "act_test_1791557395779",
-          "activityType": "physical_exercise",
-          "activityName": "Shoulder External Rotation",
-          "exerciseId": "shoulder_rotation",
-          "configuration": {
-            "targetRepetitions": 15,
-            "targetRomMaxAngle": 90
-          },
-          "startDate": "2026-10-09T14:49:55.779Z",
-          "status": "active"
-        },
-        {
-          "activityId": "act_test_1791595299793",
-          "activityType": "physical_exercise",
-          "activityName": "Shoulder External Rotation",
-          "exerciseId": "shoulder_rotation",
-          "configuration": {
-            "targetRepetitions": 15,
-            "targetRomMaxAngle": 90
-          },
-          "startDate": "2026-10-10T01:21:39.793Z",
-          "status": "active"
-        },
-        {
-          "activityId": "act_test_1791595374965",
-          "activityType": "physical_exercise",
-          "activityName": "Shoulder External Rotation",
-          "exerciseId": "shoulder_rotation",
-          "configuration": {
-            "targetRepetitions": 15,
-            "targetRomMaxAngle": 90
-          },
-          "startDate": "2026-10-10T01:22:54.965Z",
-          "status": "active"
-        },
-        {
-          "activityId": "act_test_1791598159559",
-          "activityType": "physical_exercise",
-          "activityName": "Shoulder External Rotation",
-          "exerciseId": "shoulder_rotation",
-          "configuration": {
-            "targetRepetitions": 15,
-            "targetRomMaxAngle": 90
-          },
-          "startDate": "2026-10-10T02:09:19.559Z",
-          "status": "active"
-        }
-      ],
-      "notes": "Prescribed following in-clinic physical therapy evaluation.",
-      "createdAt": "2026-10-09T14:49:50.630Z",
-      "updatedAt": "2026-10-10T02:09:19.559Z"
-    },
     {
       "_id": "plan_73c377da79bd",
       "planId": "PLN-MAYA-2026-V1",
@@ -506,450 +360,8 @@
       "updatedAt": "2026-10-10T11:27:25.024Z"
     }
   ],
-  "exerciseSessions": [
-    {
-      "_id": "es_44a8435670c1",
-      "sessionId": "es_alex_hist_4",
-      "patientId": "usr_alex_rivera",
-      "assignedActivityId": "act_arm_raise_alex",
-      "exerciseId": "arm_raise",
-      "exerciseName": "Arm Raise",
-      "startedAt": "2026-10-05T14:49:50.630Z",
-      "completedAt": "2026-10-05T14:52:15.630Z",
-      "activeDurationSeconds": 135,
-      "elapsedDurationSeconds": 145,
-      "targetRepetitions": 12,
-      "completedRepetitions": 12,
-      "validRepetitions": 11,
-      "completionPercentage": 100,
-      "sessionStatus": "completed",
-      "relevantMetrics": {
-        "romMaxAngle": 120,
-        "romMinAngle": 14,
-        "avgCadenceRepsPerMin": 9,
-        "symmetryScore": 88,
-        "formAccuracyPercentage": 96,
-        "smoothnessScore": 90
-      },
-      "measurementQuality": "high",
-      "patientFeedback": "Arm felt less fatigued compared to last week.",
-      "exerciseAlgorithmVersion": "1.2.0",
-      "clientTimestamp": "2026-10-05T14:49:50.630Z",
-      "syncedAt": "2026-10-09T14:49:50.630Z",
-      "syncedFromServer": true
-    },
-    {
-      "_id": "es_f26d4bd24d25",
-      "sessionId": "es_alex_hist_3",
-      "patientId": "usr_alex_rivera",
-      "assignedActivityId": "act_arm_raise_alex",
-      "exerciseId": "arm_raise",
-      "exerciseName": "Arm Raise",
-      "startedAt": "2026-10-06T14:49:50.630Z",
-      "completedAt": "2026-10-06T14:52:15.630Z",
-      "activeDurationSeconds": 135,
-      "elapsedDurationSeconds": 145,
-      "targetRepetitions": 12,
-      "completedRepetitions": 12,
-      "validRepetitions": 10,
-      "completionPercentage": 100,
-      "sessionStatus": "completed",
-      "relevantMetrics": {
-        "romMaxAngle": 118,
-        "romMinAngle": 14,
-        "avgCadenceRepsPerMin": 9,
-        "symmetryScore": 87,
-        "formAccuracyPercentage": 94,
-        "smoothnessScore": 89
-      },
-      "measurementQuality": "high",
-      "patientFeedback": "Arm felt less fatigued compared to last week.",
-      "exerciseAlgorithmVersion": "1.2.0",
-      "clientTimestamp": "2026-10-06T14:49:50.630Z",
-      "syncedAt": "2026-10-09T14:49:50.631Z",
-      "syncedFromServer": true
-    },
-    {
-      "_id": "es_e6357355f679",
-      "sessionId": "es_alex_hist_2",
-      "patientId": "usr_alex_rivera",
-      "assignedActivityId": "act_arm_raise_alex",
-      "exerciseId": "arm_raise",
-      "exerciseName": "Arm Raise",
-      "startedAt": "2026-10-07T14:49:50.630Z",
-      "completedAt": "2026-10-07T14:52:15.630Z",
-      "activeDurationSeconds": 135,
-      "elapsedDurationSeconds": 145,
-      "targetRepetitions": 12,
-      "completedRepetitions": 12,
-      "validRepetitions": 11,
-      "completionPercentage": 100,
-      "sessionStatus": "completed",
-      "relevantMetrics": {
-        "romMaxAngle": 116,
-        "romMinAngle": 14,
-        "avgCadenceRepsPerMin": 9,
-        "symmetryScore": 86,
-        "formAccuracyPercentage": 92,
-        "smoothnessScore": 88
-      },
-      "measurementQuality": "high",
-      "patientFeedback": "Arm felt less fatigued compared to last week.",
-      "exerciseAlgorithmVersion": "1.2.0",
-      "clientTimestamp": "2026-10-07T14:49:50.630Z",
-      "syncedAt": "2026-10-09T14:49:50.631Z",
-      "syncedFromServer": true
-    },
-    {
-      "_id": "es_3dbb4179f676",
-      "sessionId": "es_alex_hist_1",
-      "patientId": "usr_alex_rivera",
-      "assignedActivityId": "act_arm_raise_alex",
-      "exerciseId": "arm_raise",
-      "exerciseName": "Arm Raise",
-      "startedAt": "2026-10-08T14:49:50.630Z",
-      "completedAt": "2026-10-08T14:52:15.630Z",
-      "activeDurationSeconds": 135,
-      "elapsedDurationSeconds": 145,
-      "targetRepetitions": 12,
-      "completedRepetitions": 12,
-      "validRepetitions": 10,
-      "completionPercentage": 100,
-      "sessionStatus": "completed",
-      "relevantMetrics": {
-        "romMaxAngle": 114,
-        "romMinAngle": 14,
-        "avgCadenceRepsPerMin": 9,
-        "symmetryScore": 85,
-        "formAccuracyPercentage": 90,
-        "smoothnessScore": 87
-      },
-      "measurementQuality": "high",
-      "patientFeedback": "Arm felt less fatigued compared to last week.",
-      "exerciseAlgorithmVersion": "1.2.0",
-      "clientTimestamp": "2026-10-08T14:49:50.630Z",
-      "syncedAt": "2026-10-09T14:49:50.631Z",
-      "syncedFromServer": true
-    },
-    {
-      "_id": "es_66bab95fa201",
-      "sessionId": "test_session_c53e4d8d-a1ec-424a-9aca-8dd230d273b0",
-      "patientId": "usr_alex_rivera",
-      "exerciseId": "arm_raise",
-      "exerciseName": "Arm Raise",
-      "startedAt": "2026-10-09T14:49:55.780Z",
-      "completedAt": "2026-10-09T14:49:55.780Z",
-      "activeDurationSeconds": 120,
-      "elapsedDurationSeconds": 135,
-      "targetRepetitions": 12,
-      "completedRepetitions": 12,
-      "validRepetitions": 11,
-      "completionPercentage": 100,
-      "sessionStatus": "completed",
-      "relevantMetrics": {
-        "romMaxAngle": 125,
-        "formAccuracyPercentage": 92
-      },
-      "measurementQuality": "high",
-      "exerciseAlgorithmVersion": "1.2.0",
-      "clientTimestamp": "2026-10-09T14:49:55.780Z",
-      "syncedAt": "2026-10-09T14:49:55.780Z",
-      "syncedFromServer": true
-    },
-    {
-      "_id": "es_704ee65b5bb2",
-      "sessionId": "test_session_4cc888db-0099-4d15-9397-d861c35213ef",
-      "patientId": "usr_alex_rivera",
-      "exerciseId": "arm_raise",
-      "exerciseName": "Arm Raise",
-      "startedAt": "2026-10-10T01:21:39.794Z",
-      "completedAt": "2026-10-10T01:21:39.794Z",
-      "activeDurationSeconds": 120,
-      "elapsedDurationSeconds": 135,
-      "targetRepetitions": 12,
-      "completedRepetitions": 12,
-      "validRepetitions": 11,
-      "completionPercentage": 100,
-      "sessionStatus": "completed",
-      "relevantMetrics": {
-        "romMaxAngle": 125,
-        "formAccuracyPercentage": 92
-      },
-      "measurementQuality": "high",
-      "exerciseAlgorithmVersion": "1.2.0",
-      "clientTimestamp": "2026-10-10T01:21:39.794Z",
-      "syncedAt": "2026-10-10T01:21:39.794Z",
-      "syncedFromServer": true
-    },
-    {
-      "_id": "es_2f25aa083967",
-      "sessionId": "test_session_69309b80-c85c-4d58-98ab-64e5d31eeeab",
-      "patientId": "usr_alex_rivera",
-      "exerciseId": "arm_raise",
-      "exerciseName": "Arm Raise",
-      "startedAt": "2026-10-10T01:22:54.965Z",
-      "completedAt": "2026-10-10T01:22:54.965Z",
-      "activeDurationSeconds": 120,
-      "elapsedDurationSeconds": 135,
-      "targetRepetitions": 12,
-      "completedRepetitions": 12,
-      "validRepetitions": 11,
-      "completionPercentage": 100,
-      "sessionStatus": "completed",
-      "relevantMetrics": {
-        "romMaxAngle": 125,
-        "formAccuracyPercentage": 92
-      },
-      "measurementQuality": "high",
-      "exerciseAlgorithmVersion": "1.2.0",
-      "clientTimestamp": "2026-10-10T01:22:54.965Z",
-      "syncedAt": "2026-10-10T01:22:54.965Z",
-      "syncedFromServer": true
-    },
-    {
-      "_id": "es_1405d8fa1ca9",
-      "sessionId": "ses_test_1791598155105",
-      "patientId": "usr_alex_rivera",
-      "exerciseId": "arm_raise",
-      "exerciseName": "Arm Raise (Anterior Shoulder Flexion)",
-      "startedAt": "2026-10-10T02:09:15.112Z",
-      "completedAt": "2026-10-10T02:09:15.112Z",
-      "activeDurationSeconds": 120,
-      "elapsedDurationSeconds": 120,
-      "targetRepetitions": 15,
-      "completedRepetitions": 15,
-      "validRepetitions": 14,
-      "completionPercentage": 100,
-      "sessionStatus": "completed",
-      "relevantMetrics": {
-        "romMaxAngle": 128,
-        "formAccuracyPercentage": 93,
-        "romMinAngle": 15,
-        "avgCadenceRepsPerMin": 10
-      },
-      "measurementQuality": "high",
-      "exerciseAlgorithmVersion": "1.2.0",
-      "clientTimestamp": "2026-10-10T02:09:15.112Z",
-      "syncedAt": "2026-10-10T02:09:15.112Z",
-      "syncedFromServer": true
-    },
-    {
-      "_id": "es_4114f66455e4",
-      "sessionId": "ses_alt_1791598155135",
-      "patientId": "usr_alex_rivera",
-      "exerciseId": "shoulder_abduction",
-      "exerciseName": "Shoulder Abduction",
-      "startedAt": "2026-10-10T02:09:15.140Z",
-      "completedAt": "2026-10-10T02:09:15.140Z",
-      "activeDurationSeconds": 60,
-      "elapsedDurationSeconds": 60,
-      "targetRepetitions": 10,
-      "completedRepetitions": 10,
-      "validRepetitions": 10,
-      "completionPercentage": 100,
-      "sessionStatus": "completed",
-      "relevantMetrics": {
-        "romMaxAngle": 120,
-        "romMinAngle": 15,
-        "formAccuracyPercentage": 95,
-        "avgCadenceRepsPerMin": 10
-      },
-      "measurementQuality": "high",
-      "exerciseAlgorithmVersion": "1.2.0",
-      "clientTimestamp": "2026-10-10T02:09:15.140Z",
-      "syncedAt": "2026-10-10T02:09:15.140Z",
-      "syncedFromServer": true
-    },
-    {
-      "_id": "es_e04f86832ffc",
-      "sessionId": "test_session_88c36e14-e40b-4a88-9040-07db5fe99c4d",
-      "patientId": "usr_alex_rivera",
-      "exerciseId": "arm_raise",
-      "exerciseName": "Arm Raise",
-      "startedAt": "2026-10-10T02:09:19.559Z",
-      "completedAt": "2026-10-10T02:09:19.559Z",
-      "activeDurationSeconds": 120,
-      "elapsedDurationSeconds": 135,
-      "targetRepetitions": 12,
-      "completedRepetitions": 12,
-      "validRepetitions": 11,
-      "completionPercentage": 100,
-      "sessionStatus": "completed",
-      "relevantMetrics": {
-        "romMaxAngle": 125,
-        "formAccuracyPercentage": 92
-      },
-      "measurementQuality": "high",
-      "exerciseAlgorithmVersion": "1.2.0",
-      "clientTimestamp": "2026-10-10T02:09:19.559Z",
-      "syncedAt": "2026-10-10T02:09:19.559Z",
-      "syncedFromServer": true
-    }
-  ],
-  "cognitiveGameSessions": [
-    {
-      "_id": "cgs_99ed5fa4e470",
-      "sessionId": "cgs_alex_hist_3",
-      "patientId": "usr_alex_rivera",
-      "assignedActivityId": "act_memory_alex",
-      "gameId": "memory_match",
-      "gameName": "Memory Match",
-      "cognitiveDomain": "working_memory",
-      "startedAt": "2026-10-06T15:49:50.630Z",
-      "completedAt": "2026-10-06T15:51:15.630Z",
-      "durationSeconds": 85,
-      "score": 870,
-      "accuracyPercentage": 94,
-      "reactionTimeMs": 360,
-      "difficulty": "medium",
-      "levelReached": 3,
-      "sessionStatus": "completed",
-      "clientTimestamp": "2026-10-06T15:49:50.630Z",
-      "syncedAt": "2026-10-09T14:49:50.631Z",
-      "syncedFromServer": true
-    },
-    {
-      "_id": "cgs_2244deb6c288",
-      "sessionId": "cgs_alex_hist_2",
-      "patientId": "usr_alex_rivera",
-      "assignedActivityId": "act_memory_alex",
-      "gameId": "memory_match",
-      "gameName": "Memory Match",
-      "cognitiveDomain": "working_memory",
-      "startedAt": "2026-10-07T15:49:50.630Z",
-      "completedAt": "2026-10-07T15:51:15.630Z",
-      "durationSeconds": 85,
-      "score": 820,
-      "accuracyPercentage": 91,
-      "reactionTimeMs": 380,
-      "difficulty": "medium",
-      "levelReached": 3,
-      "sessionStatus": "completed",
-      "clientTimestamp": "2026-10-07T15:49:50.630Z",
-      "syncedAt": "2026-10-09T14:49:50.631Z",
-      "syncedFromServer": true
-    },
-    {
-      "_id": "cgs_feb4ab4b857e",
-      "sessionId": "cgs_alex_hist_1",
-      "patientId": "usr_alex_rivera",
-      "assignedActivityId": "act_memory_alex",
-      "gameId": "memory_match",
-      "gameName": "Memory Match",
-      "cognitiveDomain": "working_memory",
-      "startedAt": "2026-10-08T15:49:50.630Z",
-      "completedAt": "2026-10-08T15:51:15.630Z",
-      "durationSeconds": 85,
-      "score": 770,
-      "accuracyPercentage": 88,
-      "reactionTimeMs": 400,
-      "difficulty": "medium",
-      "levelReached": 3,
-      "sessionStatus": "completed",
-      "clientTimestamp": "2026-10-08T15:49:50.630Z",
-      "syncedAt": "2026-10-09T14:49:50.631Z",
-      "syncedFromServer": true
-    },
-    {
-      "_id": "cgs_68bd77fda19b",
-      "sessionId": "test_game_4a075863-0303-4365-8dad-864a7bc5dcb8",
-      "patientId": "usr_alex_rivera",
-      "gameId": "reaction_time",
-      "gameName": "Reaction Time",
-      "cognitiveDomain": "processing_speed",
-      "startedAt": "2026-10-09T14:49:55.780Z",
-      "completedAt": "2026-10-09T14:49:55.780Z",
-      "durationSeconds": 90,
-      "score": 850,
-      "accuracyPercentage": 95,
-      "reactionTimeMs": 245,
-      "difficulty": "medium",
-      "levelReached": 1,
-      "sessionStatus": "completed",
-      "clientTimestamp": "2026-10-09T14:49:55.780Z",
-      "syncedAt": "2026-10-09T14:49:55.780Z",
-      "syncedFromServer": true
-    },
-    {
-      "_id": "cgs_8d9e35389852",
-      "sessionId": "test_game_bcd56d36-02b4-4215-b508-93c78053ada8",
-      "patientId": "usr_alex_rivera",
-      "gameId": "reaction_time",
-      "gameName": "Reaction Time",
-      "cognitiveDomain": "processing_speed",
-      "startedAt": "2026-10-10T01:21:39.794Z",
-      "completedAt": "2026-10-10T01:21:39.794Z",
-      "durationSeconds": 90,
-      "score": 850,
-      "accuracyPercentage": 95,
-      "reactionTimeMs": 245,
-      "difficulty": "medium",
-      "levelReached": 1,
-      "sessionStatus": "completed",
-      "clientTimestamp": "2026-10-10T01:21:39.794Z",
-      "syncedAt": "2026-10-10T01:21:39.794Z",
-      "syncedFromServer": true
-    },
-    {
-      "_id": "cgs_1cac5c85077a",
-      "sessionId": "test_game_732228fc-b4ea-4691-9c9c-0c7d07e806c6",
-      "patientId": "usr_alex_rivera",
-      "gameId": "reaction_time",
-      "gameName": "Reaction Time",
-      "cognitiveDomain": "processing_speed",
-      "startedAt": "2026-10-10T01:22:54.966Z",
-      "completedAt": "2026-10-10T01:22:54.966Z",
-      "durationSeconds": 90,
-      "score": 850,
-      "accuracyPercentage": 95,
-      "reactionTimeMs": 245,
-      "difficulty": "medium",
-      "levelReached": 1,
-      "sessionStatus": "completed",
-      "clientTimestamp": "2026-10-10T01:22:54.966Z",
-      "syncedAt": "2026-10-10T01:22:54.966Z",
-      "syncedFromServer": true
-    },
-    {
-      "_id": "cgs_755f41c22f3e",
-      "sessionId": "ses_game_1791598155123",
-      "patientId": "usr_alex_rivera",
-      "gameId": "memory_match",
-      "gameName": "Memory Match (Working Memory)",
-      "cognitiveDomain": "working_memory",
-      "startedAt": "2026-10-10T02:09:15.131Z",
-      "completedAt": "2026-10-10T02:09:15.131Z",
-      "durationSeconds": 45,
-      "score": 850,
-      "accuracyPercentage": 96,
-      "difficulty": "medium",
-      "levelReached": 1,
-      "sessionStatus": "completed",
-      "clientTimestamp": "2026-10-10T02:09:15.131Z",
-      "syncedAt": "2026-10-10T02:09:15.131Z",
-      "syncedFromServer": true
-    },
-    {
-      "_id": "cgs_bf29258c19d9",
-      "sessionId": "test_game_92fb73ae-7151-4d8c-96bf-3e4e58e49213",
-      "patientId": "usr_alex_rivera",
-      "gameId": "reaction_time",
-      "gameName": "Reaction Time",
-      "cognitiveDomain": "processing_speed",
-      "startedAt": "2026-10-10T02:09:19.559Z",
-      "completedAt": "2026-10-10T02:09:19.559Z",
-      "durationSeconds": 90,
-      "score": 850,
-      "accuracyPercentage": 95,
-      "reactionTimeMs": 245,
-      "difficulty": "medium",
-      "levelReached": 1,
-      "sessionStatus": "completed",
-      "clientTimestamp": "2026-10-10T02:09:19.559Z",
-      "syncedAt": "2026-10-10T02:09:19.559Z",
-      "syncedFromServer": true
-    }
-  ],
+  "exerciseSessions": [],
+  "cognitiveGameSessions": [],
   "refreshTokens": [
     {
       "_id": "rt_67cd97401f7b",
@@ -1159,9 +571,91 @@
       "tokenHash": "1d81e6c6ca0b1832ccfa9630e0a6cde0b9cee6f80969400ff4bd97770588945e",
       "userId": "usr_27b2b9c8cfc1",
       "expiresAt": "2026-11-09T11:13:58.446Z",
+      "revoked": true,
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-10-10T11:13:58.447Z",
+      "replacedByTokenHash": "d9511204d49aaf7a4f8ca74bbb91222b2009f131f05cabc2d85305203986618b"
+    },
+    {
+      "_id": "rt_f6af16f9a8bd",
+      "tokenHash": "d9511204d49aaf7a4f8ca74bbb91222b2009f131f05cabc2d85305203986618b",
+      "userId": "usr_27b2b9c8cfc1",
+      "expiresAt": "2026-11-09T13:36:29.231Z",
+      "revoked": true,
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "createdAt": "2026-10-10T13:36:29.233Z"
+    },
+    {
+      "_id": "rt_4e420871941c",
+      "tokenHash": "e8457b6bcc05f69b7486ee3e648a92e71bb846e717065ae6e4a17cf1cc5799cc",
+      "userId": "usr_27b2b9c8cfc1",
+      "expiresAt": "2026-11-09T13:37:04.810Z",
+      "revoked": true,
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "createdAt": "2026-10-10T13:37:04.810Z",
+      "replacedByTokenHash": "6a9ffdb428b2d1f597d842f0db0d029e4ea5f2cac501401741078ea8d3726788"
+    },
+    {
+      "_id": "rt_903843de6d04",
+      "tokenHash": "6a9ffdb428b2d1f597d842f0db0d029e4ea5f2cac501401741078ea8d3726788",
+      "userId": "usr_27b2b9c8cfc1",
+      "expiresAt": "2026-11-09T14:22:03.818Z",
+      "revoked": true,
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "createdAt": "2026-10-10T14:22:03.820Z"
+    },
+    {
+      "_id": "rt_7dfa2c41c157",
+      "tokenHash": "5d778423e2cf7701a29ee629e0caf412f29c15512101ee83d02487010c41fd91",
+      "userId": "doc_sarah_chen",
+      "expiresAt": "2026-11-09T14:45:44.910Z",
+      "revoked": true,
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "createdAt": "2026-10-10T14:45:44.912Z"
+    },
+    {
+      "_id": "rt_a141c679d394",
+      "tokenHash": "a7dc65619e1f1b6d66878ecff82359f203d4fbe1d342a5533c812545c3f9f436",
+      "userId": "usr_27b2b9c8cfc1",
+      "expiresAt": "2026-11-09T14:55:12.183Z",
+      "revoked": true,
+      "replacedByTokenHash": "e51f5bbf15ca80f801b3210297a86eebc1f0e47ff31aba1024a69f4272cfc3ac",
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "createdAt": "2026-10-10T14:55:12.183Z"
+    },
+    {
+      "_id": "rt_dc68a7b65fe2",
+      "tokenHash": "e51f5bbf15ca80f801b3210297a86eebc1f0e47ff31aba1024a69f4272cfc3ac",
+      "userId": "usr_27b2b9c8cfc1",
+      "expiresAt": "2026-11-09T15:22:23.827Z",
+      "revoked": true,
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "createdAt": "2026-10-10T15:22:23.838Z"
+    },
+    {
+      "_id": "rt_4e1360077ed0",
+      "tokenHash": "7f4746658275657c75729a8137a5761f89e1fce51947ef433a322aca1db1166b",
+      "userId": "usr_24401e73d1d5",
+      "expiresAt": "2026-11-09T15:46:27.602Z",
+      "revoked": true,
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-10-10T15:46:27.602Z"
+    },
+    {
+      "_id": "rt_90dad6bed8ae",
+      "tokenHash": "588771ee15e2701259d5c02ed87a2a8f5459405746817ed79021adaa08cbe188",
+      "userId": "usr_24401e73d1d5",
+      "expiresAt": "2026-11-09T15:47:02.762Z",
       "revoked": false,
       "ipAddress": "127.0.0.1",
-      "createdAt": "2026-10-10T11:13:58.447Z"
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "createdAt": "2026-10-10T15:47:02.762Z"
     }
   ]
 }
