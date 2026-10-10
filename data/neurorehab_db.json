@@ -9,8 +9,8 @@
       "accountStatus": "active",
       "mustChangePassword": false,
       "createdAt": "2026-10-09T14:49:50.628Z",
-      "updatedAt": "2026-10-10T02:29:05.946Z",
-      "lastLoginAt": "2026-10-10T02:29:05.946Z"
+      "updatedAt": "2026-10-10T08:59:32.082Z",
+      "lastLoginAt": "2026-10-10T08:59:32.082Z"
     },
     {
       "_id": "usr_alex_rivera",
@@ -61,6 +61,30 @@
       "activationCodeExpiresAt": "2026-10-24T02:29:17.421Z",
       "createdAt": "2026-10-10T02:29:17.421Z",
       "updatedAt": "2026-10-10T02:29:17.421Z"
+    },
+    {
+      "_id": "usr_27b2b9c8cfc1",
+      "name": "Sujal Dwivedi",
+      "email": "sujaldwivedi@gmail.com",
+      "passwordHash": "$2b$12$JbKkPoonczLf.8hF4zrou.FMkxA3IsREDuYGpZGMk/t59Qt0E/9Xi",
+      "role": "doctor",
+      "accountStatus": "active",
+      "mustChangePassword": false,
+      "createdAt": "2026-10-10T11:13:58.402Z",
+      "updatedAt": "2026-10-10T11:15:37.351Z"
+    },
+    {
+      "_id": "usr_40cd9b1201ab",
+      "name": "rajesh gupta",
+      "email": "rajeshgupta.459107@patient.neurorehab.health",
+      "passwordHash": "$2b$12$nKbXtQd1W26qxb.OdSm2i.azqR1ZqXZi7KslFih9PRjw5uiCfIgbO",
+      "role": "patient",
+      "accountStatus": "pending_activation",
+      "mustChangePassword": true,
+      "activationCode": "ACT-0096A9-58C6",
+      "activationCodeExpiresAt": "2026-10-24T11:27:25.001Z",
+      "createdAt": "2026-10-10T11:27:25.001Z",
+      "updatedAt": "2026-10-10T11:27:25.001Z"
     }
   ],
   "patientProfiles": [
@@ -136,6 +160,29 @@
       },
       "createdAt": "2026-10-10T02:29:17.421Z",
       "updatedAt": "2026-10-10T02:29:17.421Z"
+    },
+    {
+      "_id": "prof_dadc0966b706",
+      "patientId": "usr_40cd9b1201ab",
+      "mrn": "MRN-917102",
+      "assignedDoctorIds": [
+        "usr_27b2b9c8cfc1"
+      ],
+      "preferredLanguage": "en",
+      "dateOfBirth": "1980-01-01",
+      "gender": "unspecified",
+      "faceVerificationEnrolled": false,
+      "primaryDiagnosis": "Rehabilitation Protocol",
+      "clinicalNotes": "6-Digit ID: 459107. Diet: High protein, anti-inflammatory. Include wild salmon, walnuts, and blueberries.",
+      "dietaryPlan": {
+        "overview": "High protein, anti-inflammatory. Include wild salmon, walnuts, and blueberries.",
+        "hydrationTargetMl": 2500,
+        "meals": [],
+        "foodsRecommended": [],
+        "foodsToAvoid": []
+      },
+      "createdAt": "2026-10-10T11:27:25.023Z",
+      "updatedAt": "2026-10-10T11:27:25.023Z"
     }
   ],
   "rehabilitationPlans": [
@@ -366,6 +413,97 @@
       ],
       "createdAt": "2026-10-10T02:29:17.422Z",
       "updatedAt": "2026-10-10T02:29:17.422Z"
+    },
+    {
+      "_id": "plan_55638f3b7e6a",
+      "planId": "PLN-MV2B80V4",
+      "patientId": "usr_40cd9b1201ab",
+      "assignedByDoctorId": "usr_27b2b9c8cfc1",
+      "title": "Comprehensive Neurorehabilitation Plan - rajesh gupta",
+      "version": 1,
+      "status": "active",
+      "startDate": "2026-10-10T11:27:25.024Z",
+      "clinicalGoals": [
+        "Improve anterior shoulder active range of motion to >120 degrees",
+        "Strengthen cognitive executive recall and visual processing speed",
+        "Promote motor cortex neuroplastic recovery through daily dosage"
+      ],
+      "activities": [
+        {
+          "activityId": "act_4b270933",
+          "activityType": "physical_exercise",
+          "activityName": "Arm Raise",
+          "exerciseId": "arm_raise",
+          "timeOfDay": "08:00",
+          "configuration": {
+            "targetRepetitions": 15,
+            "targetRomMaxAngle": 120,
+            "targetDurationSeconds": 120
+          },
+          "scheduledDays": [
+            "monday",
+            "tuesday",
+            "wednesday",
+            "thursday",
+            "friday",
+            "saturday",
+            "sunday"
+          ],
+          "frequencyPerDay": 2,
+          "startDate": "2026-10-10T11:27:25.024Z",
+          "status": "active"
+        },
+        {
+          "activityId": "act_a5f1078f",
+          "activityType": "cognitive_game",
+          "activityName": "Memory Match",
+          "exerciseId": "arm_raise",
+          "gameId": "memory_match",
+          "timeOfDay": "10:00",
+          "configuration": {
+            "difficulty": "medium",
+            "targetDurationSeconds": 120
+          },
+          "scheduledDays": [
+            "monday",
+            "tuesday",
+            "wednesday",
+            "thursday",
+            "friday",
+            "saturday",
+            "sunday"
+          ],
+          "frequencyPerDay": 1,
+          "startDate": "2026-10-10T11:27:25.024Z",
+          "status": "active"
+        },
+        {
+          "activityId": "act_2a9394de",
+          "activityType": "cognitive_game",
+          "activityName": "Reaction Time",
+          "exerciseId": "arm_raise",
+          "gameId": "reaction_time",
+          "timeOfDay": "15:00",
+          "configuration": {
+            "difficulty": "medium",
+            "targetDurationSeconds": 120
+          },
+          "scheduledDays": [
+            "monday",
+            "tuesday",
+            "wednesday",
+            "thursday",
+            "friday",
+            "saturday",
+            "sunday"
+          ],
+          "frequencyPerDay": 1,
+          "startDate": "2026-10-10T11:27:25.024Z",
+          "status": "active"
+        }
+      ],
+      "createdAt": "2026-10-10T11:27:25.024Z",
+      "updatedAt": "2026-10-10T11:27:25.024Z"
     }
   ],
   "exerciseSessions": [
@@ -826,7 +964,7 @@
       "tokenHash": "c88dba14dbf511b9dd2bdf98b8e7f960a68cbec65cfb8ca33183895e71b534b7",
       "userId": "doc_sarah_chen",
       "expiresAt": "2026-10-16T14:50:02.871Z",
-      "revoked": false,
+      "revoked": true,
       "ipAddress": "127.0.0.1",
       "userAgent": "curl/7.88.1",
       "createdAt": "2026-10-09T14:50:02.871Z"
@@ -846,7 +984,7 @@
       "tokenHash": "6ecb9efeb8381418712dcfff4a726c428941ff47a833e03f91bc5c1eea3cae93",
       "userId": "doc_sarah_chen",
       "expiresAt": "2026-10-17T01:08:30.143Z",
-      "revoked": false,
+      "revoked": true,
       "ipAddress": "127.0.0.1",
       "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
       "createdAt": "2026-10-10T01:08:30.143Z"
@@ -872,7 +1010,7 @@
       "tokenHash": "0d40d1616c24eb5bf34044ddd39fd867336a54ce99bb1c4936df05cad762dc79",
       "userId": "doc_sarah_chen",
       "expiresAt": "2026-10-17T01:23:05.957Z",
-      "revoked": false,
+      "revoked": true,
       "ipAddress": "127.0.0.1",
       "userAgent": "curl/7.88.1",
       "createdAt": "2026-10-10T01:23:05.957Z"
@@ -882,7 +1020,7 @@
       "tokenHash": "c3b631924270399c3315a4b83f15e72bd4ddc99515862d60157919a4d48b2aea",
       "userId": "doc_sarah_chen",
       "expiresAt": "2026-10-17T02:01:25.998Z",
-      "revoked": false,
+      "revoked": true,
       "ipAddress": "127.0.0.1",
       "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
       "createdAt": "2026-10-10T02:01:25.998Z"
@@ -892,7 +1030,7 @@
       "tokenHash": "23676d11b17a5e646e96365fc1ddfff50852a498ce810bd36edc4610cc6bbbee",
       "userId": "doc_sarah_chen",
       "expiresAt": "2026-10-17T02:02:30.216Z",
-      "revoked": false,
+      "revoked": true,
       "ipAddress": "127.0.0.1",
       "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
       "createdAt": "2026-10-10T02:02:30.216Z"
@@ -902,7 +1040,7 @@
       "tokenHash": "cb1e68249687c3be82ec40c8b3030a6e54e83e0d4641c62ca9f82326794ddf8d",
       "userId": "doc_sarah_chen",
       "expiresAt": "2026-10-17T02:04:05.450Z",
-      "revoked": false,
+      "revoked": true,
       "ipAddress": "127.0.0.1",
       "userAgent": "node",
       "createdAt": "2026-10-10T02:04:05.451Z"
@@ -930,7 +1068,7 @@
       "tokenHash": "e39a6cbf78710d6a963d5e5324b05f59a49e14c9b1dde122e15a1a22d2c58b65",
       "userId": "doc_sarah_chen",
       "expiresAt": "2026-10-17T02:29:05.945Z",
-      "revoked": false,
+      "revoked": true,
       "ipAddress": "127.0.0.1",
       "userAgent": "curl/7.88.1",
       "createdAt": "2026-10-10T02:29:05.945Z"
@@ -963,6 +1101,67 @@
       "ipAddress": "127.0.0.1",
       "userAgent": "curl/7.88.1",
       "createdAt": "2026-10-10T02:29:25.015Z"
+    },
+    {
+      "_id": "rt_dfb7bc8e00f7",
+      "tokenHash": "b3bcd146c97ca9f6ec6ee0f806bfd0a72d862440370460943e32fad2b38a58cf",
+      "userId": "doc_sarah_chen",
+      "expiresAt": "2026-11-09T07:15:42.486Z",
+      "revoked": true,
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 Edg/154.0.0.0",
+      "createdAt": "2026-10-10T07:15:42.487Z"
+    },
+    {
+      "_id": "rt_dc66d3f133da",
+      "tokenHash": "72842125ed534e3aa9e4a68b16b5ab0d06d975a12e622427bfa3793fb5329f3d",
+      "userId": "doc_sarah_chen",
+      "expiresAt": "2026-11-09T07:16:25.197Z",
+      "revoked": true,
+      "replacedByTokenHash": "91ca449eb26337ed448071f0ab320d606e980dfa296acb36ff94ed34a9baa5ba",
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "createdAt": "2026-10-10T07:16:25.198Z"
+    },
+    {
+      "_id": "rt_3de7a337150d",
+      "tokenHash": "91ca449eb26337ed448071f0ab320d606e980dfa296acb36ff94ed34a9baa5ba",
+      "userId": "doc_sarah_chen",
+      "expiresAt": "2026-11-09T07:36:42.030Z",
+      "revoked": true,
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "createdAt": "2026-10-10T07:36:42.034Z"
+    },
+    {
+      "_id": "rt_53ffb3a04a36",
+      "tokenHash": "91e523588badb395b91b05160389071e946fd49aae72cb4d0c38b55a666bea4a",
+      "userId": "doc_sarah_chen",
+      "expiresAt": "2026-11-09T08:59:32.078Z",
+      "revoked": true,
+      "replacedByTokenHash": "ff6042622c739b11a23eb5168bd25b53bddb4cd1257eb2be796e6cdd9e92a39c",
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "createdAt": "2026-10-10T08:59:32.078Z"
+    },
+    {
+      "_id": "rt_52d3b4d338d5",
+      "tokenHash": "ff6042622c739b11a23eb5168bd25b53bddb4cd1257eb2be796e6cdd9e92a39c",
+      "userId": "doc_sarah_chen",
+      "expiresAt": "2026-11-09T09:16:03.624Z",
+      "revoked": true,
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "createdAt": "2026-10-10T09:16:03.625Z"
+    },
+    {
+      "_id": "rt_4db9c1f0ba26",
+      "tokenHash": "1d81e6c6ca0b1832ccfa9630e0a6cde0b9cee6f80969400ff4bd97770588945e",
+      "userId": "usr_27b2b9c8cfc1",
+      "expiresAt": "2026-11-09T11:13:58.446Z",
+      "revoked": false,
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-10-10T11:13:58.447Z"
     }
   ]
 }

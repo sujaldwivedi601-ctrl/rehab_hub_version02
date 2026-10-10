@@ -3,6 +3,7 @@ import { ApiService, DoctorUser } from './services/api';
 import { Navbar } from './components/Navbar';
 import { DoctorDashboard } from './components/DoctorDashboard';
 import { DoctorAuthModal } from './components/DoctorAuthModal';
+import { LandingPage } from './components/LandingPage';
 
 export default function App() {
   const [doctor, setDoctor] = useState<DoctorUser | null>(() => ApiService.getCurrentDoctor());
@@ -23,29 +24,17 @@ export default function App() {
       })
       .catch(() => setDbStatus('Port 3000'));
 
-    // Check if doctor has active session or auto-authenticate Dr. Sarah Chen if empty
+    // Check if doctor has active session
     async function checkDoctorAuth() {
       if (ApiService.isDoctorAuthenticated()) {
         try {
           const me = await ApiService.doctorGetMe();
           setDoctor(me);
         } catch {
-          // Token expired or invalid, auto-login with default Dr. Chen demo credentials for seamless first run
-          try {
-            const res = await ApiService.doctorLogin('doctor.chen@neurorehab-connect.health', 'Password123!');
-            setDoctor(res.user);
-          } catch {
-            setDoctor(null);
-          }
-        }
-      } else {
-        // First visit: authenticate Dr. Sarah Chen so the physician dashboard is immediately active and testable!
-        try {
-          const res = await ApiService.doctorLogin('doctor.chen@neurorehab-connect.health', 'Password123!');
-          setDoctor(res.user);
-        } catch {
           setDoctor(null);
         }
+      } else {
+        setDoctor(null);
       }
     }
 
@@ -56,7 +45,22 @@ export default function App() {
     ApiService.doctorLogout();
     setDoctor(null);
     setIsProfileOpen(false);
-    setIsAuthModalOpen(true);
+  }
+
+  if (!doctor) {
+    return (
+      <>
+        <LandingPage onLoginClick={() => setIsAuthModalOpen(true)} />
+        <DoctorAuthModal
+          isOpen={isAuthModalOpen}
+          onClose={() => setIsAuthModalOpen(false)}
+          onSuccess={(loggedDoc) => {
+            setDoctor(loggedDoc);
+            setIsAuthModalOpen(false);
+          }}
+        />
+      </>
+    );
   }
 
   return (
@@ -89,18 +93,8 @@ export default function App() {
         />
       </main>
 
-      {/* Authentication Modal */}
-      <DoctorAuthModal
-        isOpen={isAuthModalOpen}
-        onClose={() => setIsAuthModalOpen(false)}
-        onSuccess={(loggedDoc) => {
-          setDoctor(loggedDoc);
-          setIsAuthModalOpen(false);
-        }}
-      />
-
       {/* Clinical Footer */}
-      <footer className="bg-white border-t border-slate-200 py-3.5 text-center text-xs text-slate-500">
+      <footer className="bg-white border-t border-slate-200 py-3.5 text-center text-xs text-slate-500 mt-auto">
         <div className="max-w-7xl mx-auto px-4 flex flex-wrap items-center justify-between gap-2">
           <span>NeuroRehab Connect • Physician Tele-Rehabilitation Portal & Mobile App API</span>
           <div className="flex items-center gap-2 text-[11px] text-slate-400">

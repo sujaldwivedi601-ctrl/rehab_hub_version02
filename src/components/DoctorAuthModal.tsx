@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import {
-  Brain,
-  Stethoscope,
   Lock,
   Mail,
   User,
   Building,
-  Award,
-  Phone,
+  Stethoscope,
+  Eye,
+  EyeOff,
   AlertCircle,
   ArrowRight,
   Sparkles,
-  CheckCircle2,
+  CheckCircle,
+  Activity,
+  Shield,
+  X,
 } from 'lucide-react';
 import { ApiService, DoctorUser } from '../services/api';
 
@@ -26,6 +28,8 @@ export function DoctorAuthModal({ isOpen, onSuccess, onClose, initialMode = 'log
   const [mode, setMode] = useState<'login' | 'register'>(initialMode);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showLoginPw, setShowLoginPw] = useState(false);
+  const [showRegPw, setShowRegPw] = useState(false);
 
   // Login form state
   const [loginEmail, setLoginEmail] = useState('');
@@ -35,12 +39,15 @@ export function DoctorAuthModal({ isOpen, onSuccess, onClose, initialMode = 'log
   const [regName, setRegName] = useState('');
   const [regEmail, setRegEmail] = useState('');
   const [regPassword, setRegPassword] = useState('');
-  const [regSpecialty, setRegSpecialty] = useState('Neurology & Neurorehabilitation');
-  const [regHospital, setRegHospital] = useState('Metro Neurosciences Center');
-  const [regLicense, setRegLicense] = useState('MD-NEURO-78491');
-  const [regPhone, setRegPhone] = useState('+1 (555) 392-1084');
+  const [regSpecialty, setRegSpecialty] = useState('');
+  const [regHospital, setRegHospital] = useState('');
 
   if (!isOpen) return null;
+
+  function switchMode(m: 'login' | 'register') {
+    setMode(m);
+    setError(null);
+  }
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -50,7 +57,7 @@ export function DoctorAuthModal({ isOpen, onSuccess, onClose, initialMode = 'log
       const res = await ApiService.doctorLogin(loginEmail, loginPassword);
       onSuccess(res.user);
     } catch (err: any) {
-      setError(err.message || 'Login failed. Please verify email and password.');
+      setError(err.message || 'Incorrect email or password. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -63,7 +70,7 @@ export function DoctorAuthModal({ isOpen, onSuccess, onClose, initialMode = 'log
       const res = await ApiService.doctorLogin('doctor.chen@neurorehab-connect.health', 'Password123!');
       onSuccess(res.user);
     } catch (err: any) {
-      setError(err.message || 'Failed to authenticate Dr. Sarah Chen');
+      setError(err.message || 'Demo login failed.');
     } finally {
       setLoading(false);
     }
@@ -73,261 +80,407 @@ export function DoctorAuthModal({ isOpen, onSuccess, onClose, initialMode = 'log
     e.preventDefault();
     setError(null);
     if (!regName.trim() || !regEmail.trim() || !regPassword) {
-      setError('Doctor name, email, and password are required');
+      setError('Doctor name, email, and password are required.');
       return;
     }
     if (regPassword.length < 6) {
-      setError('Password must be at least 6 characters');
+      setError('Password must be at least 6 characters.');
       return;
     }
-
     setLoading(true);
     try {
       const res = await ApiService.doctorRegister({
         name: regName.trim(),
         email: regEmail.trim(),
         password: regPassword,
-        specialty: regSpecialty.trim(),
-        hospital: regHospital.trim(),
-        licenseNumber: regLicense.trim(),
-        phone: regPhone.trim(),
+        specialty: regSpecialty.trim() || 'General Practice',
+        hospital: regHospital.trim() || 'General Hospital',
+        licenseNumber: '',
+        phone: '',
       });
       onSuccess(res.user);
     } catch (err: any) {
-      setError(err.message || 'Registration failed');
+      setError(err.message || 'Registration failed. Please try again.');
     } finally {
       setLoading(false);
     }
   }
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs overflow-y-auto">
-      <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-md overflow-hidden animate-in fade-in zoom-in-95 duration-150 my-8">
-        {/* Header */}
-        <div className="bg-gradient-to-r from-blue-700 via-indigo-700 to-slate-900 px-6 py-6 text-white relative">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-xs flex items-center justify-center text-white border border-white/20">
-              <Stethoscope className="w-6 h-6" />
-            </div>
-            <div>
-              <div className="flex items-center gap-1.5 text-xs text-blue-200 font-semibold uppercase tracking-wider">
-                <span>Clinical Clinician Portal</span>
-              </div>
-              <h2 className="text-xl font-bold tracking-tight">NeuroRehab Connect</h2>
-            </div>
-          </div>
-          <p className="text-xs text-blue-100/90 mt-2">
-            Secure physician portal to prescribe motor exercises, cognitive games, and nutrition with biometric face verification.
-          </p>
+  const specialties = [
+    'Neurology & Neurorehabilitation',
+    'Cardiology',
+    'Orthopedics & Sports Medicine',
+    'Physical Medicine & Rehabilitation',
+    'Geriatrics',
+    'Pediatrics',
+    'Psychiatry & Mental Health',
+    'Oncology',
+    'General Practice',
+  ];
 
-          {/* Mode Switcher Tabs */}
-          <div className="flex bg-black/20 p-1 rounded-xl mt-4 text-xs font-medium">
-            <button
-              type="button"
-              onClick={() => { setMode('login'); setError(null); }}
-              className={`flex-1 py-1.5 rounded-lg transition text-center ${
-                mode === 'login' ? 'bg-white text-blue-900 font-bold shadow-xs' : 'text-blue-100 hover:text-white'
-              }`}
-            >
-              Doctor Sign In
-            </button>
-            <button
-              type="button"
-              onClick={() => { setMode('register'); setError(null); }}
-              className={`flex-1 py-1.5 rounded-lg transition text-center ${
-                mode === 'register' ? 'bg-white text-blue-900 font-bold shadow-xs' : 'text-blue-100 hover:text-white'
-              }`}
-            >
-              Register New Doctor
-            </button>
+  const features = [
+    { icon: Activity, text: 'Track patient recovery in real-time' },
+    { icon: Shield, text: 'HIPAA-compliant secure platform' },
+    { icon: CheckCircle, text: 'Prescribe exercises, games & nutrition' },
+  ];
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm overflow-y-auto">
+      {/* Card */}
+      <div
+        className="relative bg-white rounded-3xl shadow-2xl w-full overflow-hidden flex flex-col md:flex-row"
+        style={{ maxWidth: '900px', minHeight: '520px', animation: 'authModalIn 0.3s cubic-bezier(0.34,1.56,0.64,1) both' }}
+      >
+        {/* LEFT PANEL */}
+        <div
+          className="relative flex flex-col justify-between p-8 md:p-10 text-white overflow-hidden"
+          style={{
+            width: '100%',
+            maxWidth: '400px',
+            background: 'linear-gradient(145deg, #1d4ed8 0%, #2563eb 50%, #3b82f6 100%)',
+            flexShrink: 0,
+          }}
+        >
+          {/* Decorative blobs */}
+          <div className="absolute -top-16 -left-16 w-56 h-56 rounded-full bg-white/10 blur-2xl pointer-events-none" />
+          <div className="absolute bottom-0 right-0 w-72 h-72 rounded-full bg-blue-900/30 blur-3xl pointer-events-none" />
+
+          {/* Logo */}
+          <div className="relative z-10">
+            <div className="flex items-center gap-2 mb-8">
+              <div className="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                <Activity className="w-5 h-5 text-white" />
+              </div>
+              <span className="text-lg font-bold tracking-tight">
+                NeuroRehab<span className="text-blue-200">Connect</span>
+              </span>
+            </div>
+
+            <h2 className="text-2xl md:text-3xl font-extrabold leading-tight mb-3">
+              Manage your patients<br />
+              <span className="text-blue-200">with confidence</span>
+            </h2>
+            <p className="text-sm text-blue-100/80 leading-relaxed mb-7 max-w-xs">
+              The all-in-one rehabilitation portal designed for clinicians who care about outcomes.
+            </p>
+
+            {/* Feature list */}
+            <ul className="space-y-3">
+              {features.map(({ icon: Icon, text }) => (
+                <li key={text} className="flex items-center gap-2.5 text-sm text-blue-50">
+                  <div className="w-6 h-6 rounded-full bg-white/15 flex items-center justify-center shrink-0">
+                    <Icon className="w-3.5 h-3.5 text-white" />
+                  </div>
+                  {text}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Doctor illustration */}
+          <div className="relative z-10 mt-8 -mx-4">
+            <img
+              src="/doctor-auth.jpg"
+              alt="Doctor at workstation"
+              className="w-full rounded-2xl object-cover"
+              style={{ maxHeight: '220px', objectPosition: 'top' }}
+            />
           </div>
         </div>
 
-        {/* Form Body */}
-        <div className="p-6">
+        {/* RIGHT PANEL */}
+        <div className="flex-1 flex flex-col justify-center p-8 md:p-10 relative overflow-y-auto" style={{ maxHeight: '90vh' }}>
+          {/* Close button */}
+          {onClose && (
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition text-slate-500 hover:text-slate-700"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          )}
+
+          {/* Tab switcher */}
+          <div className="flex bg-slate-100 p-1 rounded-xl mb-7 text-sm font-medium">
+            <button
+              type="button"
+              onClick={() => switchMode('login')}
+              className={`flex-1 py-2 rounded-lg transition-all duration-200 text-center ${
+                mode === 'login'
+                  ? 'bg-white text-blue-700 font-bold shadow-sm'
+                  : 'text-slate-500 hover:text-slate-700'
+              }`}
+            >
+              Sign In
+            </button>
+            <button
+              type="button"
+              onClick={() => switchMode('register')}
+              className={`flex-1 py-2 rounded-lg transition-all duration-200 text-center ${
+                mode === 'register'
+                  ? 'bg-white text-blue-700 font-bold shadow-sm'
+                  : 'text-slate-500 hover:text-slate-700'
+              }`}
+            >
+              Create Account
+            </button>
+          </div>
+
+          {/* Heading */}
+          <div className="mb-6">
+            <h3 className="text-2xl font-bold text-slate-900">
+              {mode === 'login' ? 'Welcome back! 👋' : 'Join NeuroRehab'}
+            </h3>
+            <p className="text-sm text-slate-500 mt-1">
+              {mode === 'login'
+                ? 'Please enter your credentials to access your portal'
+                : 'Create your clinician account in seconds'}
+            </p>
+          </div>
+
+          {/* Error */}
           {error && (
-            <div className="mb-4 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-start gap-2">
+            <div className="mb-5 p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-start gap-2">
               <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
               <span>{error}</span>
             </div>
           )}
 
+          {/* LOGIN FORM */}
           {mode === 'login' ? (
             <form onSubmit={handleLogin} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Physician Email
-                </label>
+                <label className="block text-xs font-semibold text-slate-600 mb-1.5">Email</label>
                 <div className="relative">
-                  <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+                  <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                   <input
+                    id="login-email"
                     type="email"
                     required
+                    autoComplete="email"
                     value={loginEmail}
                     onChange={(e) => setLoginEmail(e.target.value)}
-                    placeholder="doctor.chen@neurorehab-connect.health"
-                    className="w-full pl-9 pr-3 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-hidden transition"
+                    placeholder="doctor@hospital.com"
+                    className="w-full pl-10 pr-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition placeholder-slate-400"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Password
-                </label>
+                <label className="block text-xs font-semibold text-slate-600 mb-1.5">Password</label>
                 <div className="relative">
-                  <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+                  <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                   <input
-                    type="password"
+                    id="login-password"
+                    type={showLoginPw ? 'text' : 'password'}
                     required
+                    autoComplete="current-password"
                     value={loginPassword}
                     onChange={(e) => setLoginPassword(e.target.value)}
-                    placeholder="••••••••••••"
-                    className="w-full pl-9 pr-3 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-hidden transition"
+                    placeholder="••••••••"
+                    className="w-full pl-10 pr-11 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition placeholder-slate-400"
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowLoginPw(!showLoginPw)}
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition"
+                  >
+                    {showLoginPw ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
                 </div>
               </div>
 
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-2.5 px-4 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-semibold rounded-xl text-sm transition flex items-center justify-center gap-2 shadow-xs disabled:opacity-50 cursor-pointer"
+                id="login-submit"
+                className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white font-bold rounded-xl text-sm transition-all flex items-center justify-center gap-2 shadow-md shadow-blue-600/25 disabled:opacity-60 mt-2"
               >
-                {loading ? 'Authenticating...' : 'Sign In as Doctor'}
-                <ArrowRight className="w-4 h-4" />
+                {loading ? (
+                  <>
+                    <span className="inline-block w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
+                    Signing in…
+                  </>
+                ) : (
+                  <>
+                    Sign In
+                    <ArrowRight className="w-4 h-4" />
+                  </>
+                )}
               </button>
 
-              {/* Quick Demo One-Click Access */}
-              <div className="pt-3 border-t border-slate-200">
+              <div className="flex items-center gap-3 my-1">
+                <div className="flex-1 h-px bg-slate-200" />
+                <span className="text-xs text-slate-400">or use demo</span>
+                <div className="flex-1 h-px bg-slate-200" />
+              </div>
+
+              <button
+                type="button"
+                onClick={handleQuickDemoLogin}
+                disabled={loading}
+                id="demo-login"
+                className="w-full py-2.5 px-4 bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 rounded-xl text-xs text-slate-600 hover:text-blue-700 transition-all flex items-center justify-center gap-2 font-medium"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-blue-500" />
+                Quick Demo — <strong className="text-blue-700">Dr. Sarah Chen, MD</strong>
+              </button>
+
+              <div className="rounded-xl bg-blue-50 border border-blue-100 p-3 mt-1">
+                <p className="text-xs text-blue-700 font-semibold mb-1">Demo credentials</p>
+                <p className="text-xs text-blue-600 font-mono">doctor.chen@neurorehab-connect.health</p>
+                <p className="text-xs text-blue-600 font-mono">Password123!</p>
+              </div>
+
+              <p className="text-center text-xs text-slate-500 pt-1">
+                No account?{' '}
                 <button
                   type="button"
-                  onClick={handleQuickDemoLogin}
-                  disabled={loading}
-                  className="w-full py-2 px-3 bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-200 rounded-xl text-xs text-slate-700 hover:text-blue-700 transition flex items-center justify-center gap-2 font-medium cursor-pointer"
+                  onClick={() => switchMode('register')}
+                  className="text-blue-600 font-semibold hover:underline"
                 >
-                  <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-                  <span>Quick Demo: Sign In as <strong>Dr. Sarah Chen, MD</strong></span>
+                  Register here
                 </button>
-              </div>
+              </p>
             </form>
           ) : (
-            <form onSubmit={handleRegister} className="space-y-3.5">
+            /* REGISTER FORM */
+            <form onSubmit={handleRegister} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Full Name & Title <span className="text-rose-500">*</span>
+                <label className="block text-xs font-semibold text-slate-600 mb-1.5">
+                  Doctor Name <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
-                  <User className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+                  <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                   <input
+                    id="reg-name"
                     type="text"
                     required
                     value={regName}
                     onChange={(e) => setRegName(e.target.value)}
-                    placeholder="Dr. Julian Vance, MD"
-                    className="w-full pl-9 pr-3 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-hidden transition"
+                    placeholder="Dr. Julian Vance"
+                    className="w-full pl-10 pr-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition placeholder-slate-400"
                   />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
-                    Email Address <span className="text-rose-500">*</span>
-                  </label>
-                  <div className="relative">
-                    <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
-                    <input
-                      type="email"
-                      required
-                      value={regEmail}
-                      onChange={(e) => setRegEmail(e.target.value)}
-                      placeholder="dr.vance@clinic.org"
-                      className="w-full pl-9 pr-3 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-hidden transition"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
-                    Password <span className="text-rose-500">*</span>
-                  </label>
-                  <div className="relative">
-                    <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
-                    <input
-                      type="password"
-                      required
-                      value={regPassword}
-                      onChange={(e) => setRegPassword(e.target.value)}
-                      placeholder="Min 6 characters"
-                      className="w-full pl-9 pr-3 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-hidden transition"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
-                    Medical Specialty
-                  </label>
-                  <select
-                    value={regSpecialty}
-                    onChange={(e) => setRegSpecialty(e.target.value)}
-                    className="w-full px-3 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-hidden bg-white transition"
-                  >
-                    <option value="Neurology & Neurorehabilitation">Neurology & Neurorehab</option>
-                    <option value="Physical Medicine & Rehabilitation (PM&R)">PM&R / Physiatry</option>
-                    <option value="Stroke Motor Recovery">Stroke Motor Recovery</option>
-                    <option value="Cognitive & Traumatic Brain Injury Care">TBI & Cognitive Care</option>
-                    <option value="Clinical Neurophysiology">Clinical Neurophysiology</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
-                    License Number
-                  </label>
-                  <div className="relative">
-                    <Award className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
-                    <input
-                      type="text"
-                      value={regLicense}
-                      onChange={(e) => setRegLicense(e.target.value)}
-                      placeholder="MD-NEURO-78491"
-                      className="w-full pl-9 pr-3 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-hidden transition"
-                    />
-                  </div>
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Hospital / Clinic Affiliation
-                </label>
+                <label className="block text-xs font-semibold text-slate-600 mb-1.5">Hospital Name</label>
                 <div className="relative">
-                  <Building className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+                  <Building className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                   <input
+                    id="reg-hospital"
                     type="text"
                     value={regHospital}
                     onChange={(e) => setRegHospital(e.target.value)}
-                    placeholder="Metro Neurosciences Rehabilitation Center"
-                    className="w-full pl-9 pr-3 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-hidden transition"
+                    placeholder="Metro Neurosciences Center"
+                    className="w-full pl-10 pr-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition placeholder-slate-400"
                   />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-slate-600 mb-1.5">Specialty / Domain</label>
+                <div className="relative">
+                  <Stethoscope className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <select
+                    id="reg-specialty"
+                    value={regSpecialty}
+                    onChange={(e) => setRegSpecialty(e.target.value)}
+                    className="w-full pl-10 pr-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-slate-700 appearance-none cursor-pointer"
+                  >
+                    <option value="">Select specialty…</option>
+                    {specialties.map((s) => (
+                      <option key={s} value={s}>{s}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-semibold text-slate-600 mb-1.5">
+                    Email <span className="text-red-500">*</span>
+                  </label>
+                  <div className="relative">
+                    <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                    <input
+                      id="reg-email"
+                      type="email"
+                      required
+                      value={regEmail}
+                      onChange={(e) => setRegEmail(e.target.value)}
+                      placeholder="dr@hospital.com"
+                      className="w-full pl-10 pr-3 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition placeholder-slate-400"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-slate-600 mb-1.5">
+                    Password <span className="text-red-500">*</span>
+                  </label>
+                  <div className="relative">
+                    <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                    <input
+                      id="reg-password"
+                      type={showRegPw ? 'text' : 'password'}
+                      required
+                      value={regPassword}
+                      onChange={(e) => setRegPassword(e.target.value)}
+                      placeholder="Min 6 chars"
+                      className="w-full pl-10 pr-10 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition placeholder-slate-400"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowRegPw(!showRegPw)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition"
+                    >
+                      {showRegPw ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    </button>
+                  </div>
                 </div>
               </div>
 
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full mt-2 py-2.5 px-4 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-semibold rounded-xl text-sm transition flex items-center justify-center gap-2 shadow-xs disabled:opacity-50 cursor-pointer"
+                id="register-submit"
+                className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white font-bold rounded-xl text-sm transition-all flex items-center justify-center gap-2 shadow-md shadow-blue-600/25 disabled:opacity-60 mt-1"
               >
-                {loading ? 'Creating Doctor Account...' : 'Complete Registration & Enter Portal'}
-                <CheckCircle2 className="w-4 h-4" />
+                {loading ? (
+                  <>
+                    <span className="inline-block w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
+                    Creating account…
+                  </>
+                ) : (
+                  <>
+                    Create Account
+                    <CheckCircle className="w-4 h-4" />
+                  </>
+                )}
               </button>
+
+              <p className="text-center text-xs text-slate-500">
+                Already registered?{' '}
+                <button
+                  type="button"
+                  onClick={() => switchMode('login')}
+                  className="text-blue-600 font-semibold hover:underline"
+                >
+                  Sign in
+                </button>
+              </p>
             </form>
           )}
         </div>
       </div>
+
+      <style>{`
+        @keyframes authModalIn {
+          from { opacity: 0; transform: scale(0.92) translateY(16px); }
+          to   { opacity: 1; transform: scale(1)   translateY(0);    }
+        }
+      `}</style>
     </div>
   );
 }

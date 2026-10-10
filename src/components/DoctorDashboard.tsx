@@ -155,11 +155,36 @@ export function DoctorDashboard({
               {doctor ? `Welcome, ${doctor.name}` : 'Clinical Physician Portal'}
             </h1>
 
-            <p className="text-xs sm:text-sm text-blue-200/90 leading-relaxed">
-              {doctor
-                ? `${doctor.specialty || 'Neurology'} • ${doctor.hospital || 'Clinical Rehabilitation'} — Prescribe physical exercises, 13 cognitive games, nutritional protocols, and enroll reference facial biometrics.`
-                : 'Sign in to prescribe exercises, games, meal timings, and enroll patients with face-verification security.'}
-            </p>
+            {doctor ? (
+              <div className="flex flex-wrap items-center gap-4 text-sm text-blue-100 mt-2">
+                <div className="flex items-center gap-1.5">
+                  <UserCheck className="w-4 h-4 text-blue-300" />
+                  <span><strong>{patients.length}</strong> Patient{patients.length !== 1 ? 's' : ''} Enrolled</span>
+                </div>
+                {doctor.hospital && (
+                  <>
+                    <div className="w-1 h-1 rounded-full bg-blue-500"></div>
+                    <div className="flex items-center gap-1.5">
+                      <Stethoscope className="w-4 h-4 text-blue-300" />
+                      <span>{doctor.hospital}</span>
+                    </div>
+                  </>
+                )}
+                {doctor.specialty && (
+                  <>
+                    <div className="w-1 h-1 rounded-full bg-blue-500"></div>
+                    <div className="flex items-center gap-1.5">
+                      <Brain className="w-4 h-4 text-blue-300" />
+                      <span className="font-medium bg-blue-800/50 px-2 py-0.5 rounded-md border border-blue-400/20">{doctor.specialty}</span>
+                    </div>
+                  </>
+                )}
+              </div>
+            ) : (
+              <p className="text-xs sm:text-sm text-blue-200/90 leading-relaxed">
+                Sign in to prescribe exercises, games, meal timings, and enroll patients with face-verification security.
+              </p>
+            )}
           </div>
 
           <div className="flex items-center gap-3 shrink-0">
