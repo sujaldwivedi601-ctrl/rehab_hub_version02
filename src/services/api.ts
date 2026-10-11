@@ -288,6 +288,50 @@ export class ApiService {
     return data;
   }
 
+  // ─── 6-digit patient code access (mobile app integration) ───────────────
+  // Absolute URL a mobile app can open with just the patient's 6-digit code.
+  static getPatientAccessUrl(patientCode: string): string {
+    const origin = typeof window !== 'undefined' ? window.location.origin : '';
+    return `${origin}${API_BASE}/access/patient/${patientCode}`;
+  }
+
+  // Resolve a patient's entire record (profile, plan, exercises, games, diet).
+  static async getPatientByCode(patientCode: string) {
+    const res = await fetch(`${API_BASE}/access/patient/${encodeURIComponent(patientCode)}`);
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || 'No patient found for this code');
+    return data;
+  }
+
+  static async getPatientSessionsByCode(patientCode: string) {
+    const res = await fetch(`${API_BASE}/access/patient/${encodeURIComponent(patientCode)}/sessions`);
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || 'Failed to fetch patient sessions');
+    return data;
+  }
+
+  static async syncExerciseSessionByCode(patientCode: string, session: any) {
+    const res = await fetch(`${API_BASE}/access/patient/${encodeURIComponent(patientCode)}/exercise-sessions`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(session),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || 'Failed to sync exercise session');
+    return data;
+  }
+
+  static async syncGameSessionByCode(patientCode: string, session: any) {
+    const res = await fetch(`${API_BASE}/access/patient/${encodeURIComponent(patientCode)}/game-sessions`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(session),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || 'Failed to sync game session');
+    return data;
+  }
+
   // Science / Clinical Evidence query
   static async getScienceEvidence(topic?: string) {
     const query = topic ? `?topic=${encodeURIComponent(topic)}` : '';

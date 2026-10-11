@@ -6,7 +6,7 @@ import dotenv from 'dotenv';
 import { createServer as createViteServer } from 'vite';
 
 import { initDatabase, dbStore } from './server/db/connection.js';
-import { seedInitialData } from './server/db/seed.js';
+import { seedInitialData, migratePatientCodes } from './server/db/seed.js';
 
 import authRoutes from './server/routes/authRoutes.js';
 import patientRoutes from './server/routes/patientRoutes.js';
@@ -14,6 +14,12 @@ import sessionRoutes from './server/routes/sessionRoutes.js';
 import doctorRoutes from './server/routes/doctorRoutes.js';
 import scienceRoutes from './server/routes/scienceRoutes.js';
 import testRoutes from './server/routes/testRoutes.js';
+import accessRoutes from './server/routes/accessRoutes.js';
+import { userRouter, doctorRouter } from './server/routes/accountRoutes.js';
+import patientResourceRoutes from './server/routes/patientResourceRoutes.js';
+import planRoutes from './server/routes/planRoutes.js';
+import { exerciseRouter, gameRouter } from './server/routes/sessionRecordRoutes.js';
+import analyticsRoutes from './server/routes/analyticsRoutes.js';
 
 dotenv.config();
 
@@ -60,6 +66,17 @@ app.use('/api/v1/sessions', sessionRoutes);
 app.use('/api/v1/doctor', doctorRoutes);
 app.use('/api/v1/science', scienceRoutes);
 app.use('/api/v1/tests', testRoutes);
+// Public 6-digit patient-code access (mobile app opens patient records)
+app.use('/api/v1/access', accessRoutes);
+
+// Full CRUD REST resources
+app.use('/api/v1/users', userRouter);
+app.use('/api/v1/doctors', doctorRouter);
+app.use('/api/v1/patients', patientResourceRoutes);
+app.use('/api/v1/plans', planRoutes);
+app.use('/api/v1/exercise-sessions', exerciseRouter);
+app.use('/api/v1/game-sessions', gameRouter);
+app.use('/api/v1/analytics', analyticsRoutes);
 
 // Safe database offline fallback error handler
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
@@ -78,6 +95,7 @@ async function startServer() {
     // 1. Initialize Database & Seed
     await initDatabase();
     await seedInitialData();
+    await migratePatientCodes();
 
     // 2. Vite middleware in dev or static files in production
     if (!isProduction) {

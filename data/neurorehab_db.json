@@ -9,8 +9,8 @@
       "accountStatus": "active",
       "mustChangePassword": false,
       "createdAt": "2026-10-09T14:49:50.628Z",
-      "updatedAt": "2026-10-10T14:45:44.917Z",
-      "lastLoginAt": "2026-10-10T14:45:44.916Z"
+      "updatedAt": "2026-10-11T05:22:25.366Z",
+      "lastLoginAt": "2026-10-11T05:22:25.366Z"
     },
     {
       "_id": "usr_maya_lin",
@@ -23,7 +23,8 @@
       "activationCode": "ACT-9421-8832",
       "activationCodeExpiresAt": "2026-10-23T14:49:50.630Z",
       "createdAt": "2026-10-09T14:49:50.631Z",
-      "updatedAt": "2026-10-09T14:49:50.631Z"
+      "updatedAt": "2026-10-09T14:49:50.631Z",
+      "patientCode": "912440"
     },
     {
       "_id": "usr_94ac749b85b3",
@@ -48,7 +49,8 @@
       "activationCode": "ACT-F6F666-2F88",
       "activationCodeExpiresAt": "2026-10-24T02:29:17.421Z",
       "createdAt": "2026-10-10T02:29:17.421Z",
-      "updatedAt": "2026-10-10T02:29:17.421Z"
+      "updatedAt": "2026-10-10T02:29:17.421Z",
+      "patientCode": "259942"
     },
     {
       "_id": "usr_27b2b9c8cfc1",
@@ -73,7 +75,8 @@
       "activationCode": "ACT-0096A9-58C6",
       "activationCodeExpiresAt": "2026-10-24T11:27:25.001Z",
       "createdAt": "2026-10-10T11:27:25.001Z",
-      "updatedAt": "2026-10-10T11:27:25.001Z"
+      "updatedAt": "2026-10-10T11:27:25.001Z",
+      "patientCode": "459107"
     },
     {
       "_id": "usr_24401e73d1d5",
@@ -84,8 +87,36 @@
       "accountStatus": "active",
       "mustChangePassword": false,
       "createdAt": "2026-10-10T15:46:27.581Z",
-      "updatedAt": "2026-10-10T15:47:02.763Z",
-      "lastLoginAt": "2026-10-10T15:47:02.763Z"
+      "updatedAt": "2026-10-11T05:42:51.198Z",
+      "lastLoginAt": "2026-10-11T05:42:51.198Z"
+    },
+    {
+      "_id": "usr_97e6b132e878",
+      "name": "Rahul",
+      "email": "rahul.269067@patient.neurorehab.health",
+      "passwordHash": "$2b$12$8wdKAGmJ1RM35hX9Ix9k3eYm8xcaeSJMeI0uUIvA68iqT8cnPLG8y",
+      "role": "patient",
+      "accountStatus": "pending_activation",
+      "mustChangePassword": true,
+      "activationCode": "ACT-4AD074-3CCB",
+      "activationCodeExpiresAt": "2026-10-25T03:31:09.743Z",
+      "createdAt": "2026-10-11T03:31:09.743Z",
+      "updatedAt": "2026-10-11T03:31:09.743Z",
+      "patientCode": "269067"
+    },
+    {
+      "_id": "usr_904c574fa5d3",
+      "name": "Sulaj",
+      "email": "sulaj.697623@patient.neurorehab.health",
+      "passwordHash": "$2b$12$c0KMCDjHhRef.vlxssMfaexucqEkaLFEfrXQkOGPP2suWQyCo/kRK",
+      "role": "patient",
+      "accountStatus": "active",
+      "mustChangePassword": true,
+      "activationCode": "ACT-A7154E-81AF",
+      "activationCodeExpiresAt": "2026-10-25T04:39:26.692Z",
+      "createdAt": "2026-10-11T04:39:26.692Z",
+      "updatedAt": "2026-10-11T04:59:56.017Z",
+      "patientCode": "697623"
     }
   ],
   "patientProfiles": [
@@ -101,7 +132,8 @@
       "primaryDiagnosis": "Traumatic Brain Injury (TBI) motor & executive recovery",
       "clinicalNotes": "Initial discharge from acute rehab. Needs gentle onboarding with cognitive games and upper extremity mobility.",
       "createdAt": "2026-10-09T14:49:50.632Z",
-      "updatedAt": "2026-10-09T14:49:50.632Z"
+      "updatedAt": "2026-10-09T14:49:50.632Z",
+      "patientCode": "912440"
     },
     {
       "_id": "prof_87ff3bd82234",
@@ -144,7 +176,8 @@
         ]
       },
       "createdAt": "2026-10-10T02:29:17.421Z",
-      "updatedAt": "2026-10-10T02:29:17.421Z"
+      "updatedAt": "2026-10-10T02:29:17.421Z",
+      "patientCode": "259942"
     },
     {
       "_id": "prof_dadc0966b706",
@@ -168,7 +201,56 @@
       },
       "createdAt": "2026-10-10T11:27:25.023Z",
       "updatedAt": "2026-10-10T15:22:23.858Z",
-      "profilePhotoUrl": "https://i.pinimg.com/736x/d1/8f/c5/d18fc51030fa273f0ca53e1cab27464e.jpg"
+      "profilePhotoUrl": "https://i.pinimg.com/736x/d1/8f/c5/d18fc51030fa273f0ca53e1cab27464e.jpg",
+      "patientCode": "459107"
+    },
+    {
+      "_id": "prof_5255c6ff6360",
+      "patientId": "usr_97e6b132e878",
+      "patientCode": "269067",
+      "mrn": "MRN-269067",
+      "assignedDoctorIds": [
+        "usr_24401e73d1d5"
+      ],
+      "preferredLanguage": "en",
+      "dateOfBirth": "1980-01-01",
+      "gender": "unspecified",
+      "faceVerificationEnrolled": false,
+      "primaryDiagnosis": "Rehabilitation Protocol",
+      "clinicalNotes": "6-Digit ID: 269067. Diet: High protein, anti-inflammatory. Include wild salmon, walnuts, and blueberries.",
+      "dietaryPlan": {
+        "overview": "High protein, anti-inflammatory. Include wild salmon, walnuts, and blueberries.",
+        "hydrationTargetMl": 2500,
+        "meals": [],
+        "foodsRecommended": [],
+        "foodsToAvoid": []
+      },
+      "createdAt": "2026-10-11T03:31:09.745Z",
+      "updatedAt": "2026-10-11T03:31:09.745Z"
+    },
+    {
+      "_id": "prof_043d8a55d539",
+      "patientId": "usr_904c574fa5d3",
+      "patientCode": "697623",
+      "mrn": "MRN-697623",
+      "assignedDoctorIds": [
+        "usr_24401e73d1d5"
+      ],
+      "preferredLanguage": "en",
+      "dateOfBirth": "1980-01-01",
+      "gender": "unspecified",
+      "faceVerificationEnrolled": false,
+      "primaryDiagnosis": "Rehabilitation Protocol",
+      "clinicalNotes": "6-Digit ID: 697623. Diet: High protein, anti-inflammatory. Include wild salmon, walnuts, and blueberries.",
+      "dietaryPlan": {
+        "overview": "High protein, anti-inflammatory. Include wild salmon, walnuts, and blueberries.",
+        "hydrationTargetMl": 2500,
+        "meals": [],
+        "foodsRecommended": [],
+        "foodsToAvoid": []
+      },
+      "createdAt": "2026-10-11T04:39:26.693Z",
+      "updatedAt": "2026-10-11T04:39:26.693Z"
     }
   ],
   "rehabilitationPlans": [
@@ -178,7 +260,7 @@
       "patientId": "usr_maya_lin",
       "assignedByDoctorId": "doc_sarah_chen",
       "title": "Post-TBI Cognitive & Motor Baseline Protocol",
-      "version": 1,
+      "version": 2,
       "status": "active",
       "startDate": "2026-10-09T14:49:50.632Z",
       "clinicalGoals": [
@@ -207,7 +289,7 @@
         }
       ],
       "createdAt": "2026-10-09T14:49:50.632Z",
-      "updatedAt": "2026-10-09T14:49:50.632Z"
+      "updatedAt": "2026-10-11T05:21:58.959Z"
     },
     {
       "_id": "plan_53572ddf0d88",
@@ -358,10 +440,211 @@
       ],
       "createdAt": "2026-10-10T11:27:25.024Z",
       "updatedAt": "2026-10-10T11:27:25.024Z"
+    },
+    {
+      "_id": "plan_36e6535d6124",
+      "planId": "PLN-MV39NEPF",
+      "patientId": "usr_97e6b132e878",
+      "assignedByDoctorId": "usr_24401e73d1d5",
+      "title": "Comprehensive Neurorehabilitation Plan - Rahul",
+      "version": 1,
+      "status": "active",
+      "startDate": "2026-10-11T03:31:09.747Z",
+      "clinicalGoals": [
+        "Improve anterior shoulder active range of motion to >120 degrees",
+        "Strengthen cognitive executive recall and visual processing speed",
+        "Promote motor cortex neuroplastic recovery through daily dosage"
+      ],
+      "activities": [
+        {
+          "activityId": "act_bb9204c5",
+          "activityType": "physical_exercise",
+          "activityName": "Arm Raise",
+          "exerciseId": "arm_raise",
+          "timeOfDay": "09:00",
+          "configuration": {
+            "targetRepetitions": 15,
+            "targetRomMaxAngle": 120,
+            "targetDurationSeconds": 120
+          },
+          "scheduledDays": [
+            "monday",
+            "tuesday",
+            "wednesday",
+            "thursday",
+            "friday",
+            "saturday",
+            "sunday"
+          ],
+          "frequencyPerDay": 1,
+          "startDate": "2026-10-11T03:31:09.747Z",
+          "status": "active"
+        },
+        {
+          "activityId": "act_0592818b",
+          "activityType": "physical_exercise",
+          "activityName": "Shoulder Abduction",
+          "exerciseId": "shoulder_abduction",
+          "timeOfDay": "14:00",
+          "configuration": {
+            "targetRepetitions": 15,
+            "targetRomMaxAngle": 120,
+            "targetDurationSeconds": 120
+          },
+          "scheduledDays": [
+            "monday",
+            "tuesday",
+            "wednesday",
+            "thursday",
+            "friday",
+            "saturday",
+            "sunday"
+          ],
+          "frequencyPerDay": 1,
+          "startDate": "2026-10-11T03:31:09.747Z",
+          "status": "active"
+        },
+        {
+          "activityId": "act_3363300e",
+          "activityType": "cognitive_game",
+          "activityName": "Reaction Time",
+          "exerciseId": "arm_raise",
+          "gameId": "reaction_time",
+          "timeOfDay": "15:00",
+          "configuration": {
+            "difficulty": "medium",
+            "targetDurationSeconds": 120
+          },
+          "scheduledDays": [
+            "monday",
+            "tuesday",
+            "wednesday",
+            "thursday",
+            "friday",
+            "saturday",
+            "sunday"
+          ],
+          "frequencyPerDay": 1,
+          "startDate": "2026-10-11T03:31:09.747Z",
+          "status": "active"
+        }
+      ],
+      "createdAt": "2026-10-11T03:31:09.747Z",
+      "updatedAt": "2026-10-11T03:31:09.747Z"
+    },
+    {
+      "_id": "plan_bb60c3a3ea98",
+      "planId": "PLN-MV3C37XJ",
+      "patientId": "usr_904c574fa5d3",
+      "assignedByDoctorId": "usr_24401e73d1d5",
+      "title": "Comprehensive Neurorehabilitation Plan - Sulaj",
+      "version": 1,
+      "status": "active",
+      "startDate": "2026-10-11T04:39:26.695Z",
+      "clinicalGoals": [
+        "Improve anterior shoulder active range of motion to >120 degrees",
+        "Strengthen cognitive executive recall and visual processing speed",
+        "Promote motor cortex neuroplastic recovery through daily dosage"
+      ],
+      "activities": [
+        {
+          "activityId": "act_d5e1d7f0",
+          "activityType": "physical_exercise",
+          "activityName": "Arm Raise",
+          "exerciseId": "arm_raise",
+          "timeOfDay": "09:00",
+          "configuration": {
+            "targetRepetitions": 15,
+            "targetRomMaxAngle": 120,
+            "targetDurationSeconds": 120
+          },
+          "scheduledDays": [
+            "monday",
+            "tuesday",
+            "wednesday",
+            "thursday",
+            "friday",
+            "saturday",
+            "sunday"
+          ],
+          "frequencyPerDay": 1,
+          "startDate": "2026-10-11T04:39:26.693Z",
+          "status": "active"
+        },
+        {
+          "activityId": "act_7b801190",
+          "activityType": "cognitive_game",
+          "activityName": "Reaction Time",
+          "exerciseId": "arm_raise",
+          "gameId": "reaction_time",
+          "timeOfDay": "15:00",
+          "configuration": {
+            "difficulty": "medium",
+            "targetDurationSeconds": 120
+          },
+          "scheduledDays": [
+            "monday",
+            "tuesday",
+            "wednesday",
+            "thursday",
+            "friday",
+            "saturday",
+            "sunday"
+          ],
+          "frequencyPerDay": 1,
+          "startDate": "2026-10-11T04:39:26.693Z",
+          "status": "active"
+        }
+      ],
+      "createdAt": "2026-10-11T04:39:26.695Z",
+      "updatedAt": "2026-10-11T04:39:26.695Z"
     }
   ],
-  "exerciseSessions": [],
-  "cognitiveGameSessions": [],
+  "exerciseSessions": [
+    {
+      "_id": "es_aa14365eca7a",
+      "sessionId": "diag_session_1",
+      "patientId": "usr_40cd9b1201ab",
+      "exerciseId": "arm_raise",
+      "exerciseName": "Arm Raise (Anterior Shoulder Flexion)",
+      "startedAt": "2026-10-11T04:37:03.250Z",
+      "completedAt": "2026-10-11T04:37:03.250Z",
+      "activeDurationSeconds": 0,
+      "elapsedDurationSeconds": 0,
+      "targetRepetitions": 12,
+      "completedRepetitions": 12,
+      "validRepetitions": 12,
+      "completionPercentage": 100,
+      "sessionStatus": "completed",
+      "relevantMetrics": {},
+      "measurementQuality": "high",
+      "exerciseAlgorithmVersion": "1.2.0",
+      "clientTimestamp": "2026-10-11T04:37:03.250Z",
+      "syncedAt": "2026-10-11T04:37:03.250Z",
+      "syncedFromServer": true
+    }
+  ],
+  "cognitiveGameSessions": [
+    {
+      "_id": "cgs_05b707253f8f",
+      "sessionId": "diag_game_1",
+      "patientId": "usr_40cd9b1201ab",
+      "gameId": "memory_match",
+      "gameName": "Cognitive Rehabilitation Game",
+      "cognitiveDomain": "working_memory",
+      "startedAt": "2026-10-11T04:37:03.291Z",
+      "completedAt": "2026-10-11T04:37:03.291Z",
+      "durationSeconds": 60,
+      "score": 500,
+      "accuracyPercentage": 100,
+      "difficulty": "medium",
+      "levelReached": 1,
+      "sessionStatus": "completed",
+      "clientTimestamp": "2026-10-11T04:37:03.291Z",
+      "syncedAt": "2026-10-11T04:37:03.292Z",
+      "syncedFromServer": true
+    }
+  ],
   "refreshTokens": [
     {
       "_id": "rt_67cd97401f7b",
@@ -652,10 +935,165 @@
       "tokenHash": "588771ee15e2701259d5c02ed87a2a8f5459405746817ed79021adaa08cbe188",
       "userId": "usr_24401e73d1d5",
       "expiresAt": "2026-11-09T15:47:02.762Z",
+      "revoked": true,
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "createdAt": "2026-10-10T15:47:02.762Z",
+      "replacedByTokenHash": "c19da408dd4d618905e2512370be199a531f770c9c584db79686e7f28841bc31"
+    },
+    {
+      "_id": "rt_22d5c2fe4e31",
+      "tokenHash": "c19da408dd4d618905e2512370be199a531f770c9c584db79686e7f28841bc31",
+      "userId": "usr_24401e73d1d5",
+      "expiresAt": "2026-11-09T18:30:07.221Z",
+      "revoked": true,
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "createdAt": "2026-10-10T18:30:07.222Z"
+    },
+    {
+      "_id": "rt_1c4dbba29d2e",
+      "tokenHash": "b5e7d3ff4bb4e5979a985b9222e09f4517c2d795ab76c4e2aa4488e4290b39f6",
+      "userId": "usr_24401e73d1d5",
+      "expiresAt": "2026-11-09T18:30:26.983Z",
+      "revoked": true,
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "createdAt": "2026-10-10T18:30:26.983Z",
+      "replacedByTokenHash": "a097608db8ae76dcc98f73f754b9972fdadb842b3848c43e3d9a6811b577cd58"
+    },
+    {
+      "_id": "rt_686e79d58273",
+      "tokenHash": "a097608db8ae76dcc98f73f754b9972fdadb842b3848c43e3d9a6811b577cd58",
+      "userId": "usr_24401e73d1d5",
+      "expiresAt": "2026-11-10T03:27:52.382Z",
+      "revoked": true,
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "createdAt": "2026-10-11T03:27:52.384Z"
+    },
+    {
+      "_id": "rt_eb29c12568d2",
+      "tokenHash": "b878e35dfb3651ef45158221ae1d9c444256fc193bddb24cec246a3a18c13a33",
+      "userId": "usr_24401e73d1d5",
+      "expiresAt": "2026-11-10T03:28:47.582Z",
+      "revoked": true,
+      "replacedByTokenHash": "5e93af71505128d2741436ca07936e375228090d0b4ffa51fda31a94c5920c0e",
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "createdAt": "2026-10-11T03:28:47.583Z"
+    },
+    {
+      "_id": "rt_e5a422b0cdd7",
+      "tokenHash": "5e93af71505128d2741436ca07936e375228090d0b4ffa51fda31a94c5920c0e",
+      "userId": "usr_24401e73d1d5",
+      "expiresAt": "2026-11-10T04:34:05.349Z",
+      "revoked": true,
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "createdAt": "2026-10-11T04:34:05.355Z"
+    },
+    {
+      "_id": "rt_aa5a441d6df5",
+      "tokenHash": "1a47db8a4c2e477bc5d083e8dcb14d861b7381d26abd007762ef6f5090cf3f94",
+      "userId": "usr_24401e73d1d5",
+      "expiresAt": "2026-11-10T04:38:52.852Z",
+      "revoked": true,
+      "replacedByTokenHash": "401f5c29ac91d9d042707826c7616099c3283c0df99bda3799df85d59c5f9b53",
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "createdAt": "2026-10-11T04:38:52.853Z"
+    },
+    {
+      "_id": "rt_547c28ca860f",
+      "tokenHash": "401f5c29ac91d9d042707826c7616099c3283c0df99bda3799df85d59c5f9b53",
+      "userId": "usr_24401e73d1d5",
+      "expiresAt": "2026-11-10T04:59:55.987Z",
+      "revoked": true,
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "createdAt": "2026-10-11T04:59:55.993Z",
+      "replacedByTokenHash": "a7accaac788fe224b20b24012e9ea765a464741c8089694cff14230daa6e848f"
+    },
+    {
+      "_id": "rt_80a667e4cf4d",
+      "tokenHash": "f40a9febc8ca30af7d3c2b173f66e6c05da7d7b3bfbddc9d4343529cbc473251",
+      "userId": "doc_sarah_chen",
+      "expiresAt": "2026-11-10T05:21:09.278Z",
+      "revoked": false,
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-IN) WindowsPowerShell/5.1.26100.9549",
+      "createdAt": "2026-10-11T05:21:09.278Z"
+    },
+    {
+      "_id": "rt_c678c12254d5",
+      "tokenHash": "639cd0c77e1b935b538df2ae8aef2348e7630aee4a81f8b35a22106128d95c9f",
+      "userId": "doc_sarah_chen",
+      "expiresAt": "2026-11-10T05:21:19.198Z",
+      "revoked": false,
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-IN) WindowsPowerShell/5.1.26100.9549",
+      "createdAt": "2026-10-11T05:21:19.198Z"
+    },
+    {
+      "_id": "rt_8718fad24c06",
+      "tokenHash": "143b52a97359105d742639639e577b040d0c6f532ef3e4f786549836603160bb",
+      "userId": "doc_sarah_chen",
+      "expiresAt": "2026-11-10T05:21:48.002Z",
+      "revoked": false,
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-IN) WindowsPowerShell/5.1.26100.9549",
+      "createdAt": "2026-10-11T05:21:48.003Z"
+    },
+    {
+      "_id": "rt_e26c4a6091a5",
+      "tokenHash": "0eb2d53d87174a7933863bee478b54304125c19f4efce7870f5eee757d194a90",
+      "userId": "doc_sarah_chen",
+      "expiresAt": "2026-11-10T05:21:58.883Z",
+      "revoked": false,
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-IN) WindowsPowerShell/5.1.26100.9549",
+      "createdAt": "2026-10-11T05:21:58.883Z"
+    },
+    {
+      "_id": "rt_06b88adc4467",
+      "tokenHash": "812c15993cbcf9483fb36f6a6499003956db0b899a57ffab2daed4e16562fcfb",
+      "userId": "doc_sarah_chen",
+      "expiresAt": "2026-11-10T05:22:09.662Z",
+      "revoked": false,
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-IN) WindowsPowerShell/5.1.26100.9549",
+      "createdAt": "2026-10-11T05:22:09.662Z"
+    },
+    {
+      "_id": "rt_c5222c5bb9c0",
+      "tokenHash": "857b0358007a69ae0d53e03643889318f73660a483c646a63f6230ffbbe3723e",
+      "userId": "doc_sarah_chen",
+      "expiresAt": "2026-11-10T05:22:25.364Z",
+      "revoked": false,
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-IN) WindowsPowerShell/5.1.26100.9549",
+      "createdAt": "2026-10-11T05:22:25.364Z"
+    },
+    {
+      "_id": "rt_c66bd8da7d96",
+      "tokenHash": "a7accaac788fe224b20b24012e9ea765a464741c8089694cff14230daa6e848f",
+      "userId": "usr_24401e73d1d5",
+      "expiresAt": "2026-11-10T05:39:13.714Z",
+      "revoked": true,
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "createdAt": "2026-10-11T05:39:13.718Z"
+    },
+    {
+      "_id": "rt_5534904a6f4b",
+      "tokenHash": "9b416814e7e1df596e1c69d142342743a07b43f60731bd3c61a468fa9fe5a75f",
+      "userId": "usr_24401e73d1d5",
+      "expiresAt": "2026-11-10T05:42:51.196Z",
       "revoked": false,
       "ipAddress": "127.0.0.1",
       "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
-      "createdAt": "2026-10-10T15:47:02.762Z"
+      "createdAt": "2026-10-11T05:42:51.196Z"
     }
   ]
 }

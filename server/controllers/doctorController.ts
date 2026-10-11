@@ -33,6 +33,10 @@ export const DoctorController = {
         dietaryPlan,
         assignedActivities,
         notes,
+        patientCode,
+        mrn,
+        code,
+        patientIdCode,
       } = req.body;
 
       if (!name || !email) {
@@ -45,6 +49,34 @@ export const DoctorController = {
       if (existingUser) {
         res.status(409).json({ error: 'Conflict', message: 'A user account with this email already exists' });
         return;
+      }
+
+      // Resolve the 6-digit patient access code (the external primary key).
+      // Accepts patientCode / patientIdCode / code / mrn from the client.
+      const requestedCode = String(patientCode || patientIdCode || code || mrn || '').trim();
+
+      let resolvedPatientCode: string;
+      if (requestedCode) {
+        if (!/^\d{6}$/.test(requestedCode)) {
+          res.status(400).json({
+            error: 'Bad Request',
+            message: 'Patient code must be exactly 6 digits (e.g. 459107)',
+          });
+          return;
+        }
+        if (await PatientProfileRepository.isCodeTaken(requestedCode)) {
+          res.status(409).json({
+            error: 'Conflict',
+            message: `Patient code ${requestedCode} is already in use. Please choose a different 6-digit ID.`,
+          });
+          return;
+        }
+        resolvedPatientCode = requestedCode;
+      } else {
+        // Auto-generate a unique 6-digit code
+        do {
+          resolvedPatientCode = String(Math.floor(100000 + Math.random() * 900000));
+        } while (await PatientProfileRepository.isCodeTaken(resolvedPatientCode));
       }
 
       // Generate activation credentials
@@ -65,16 +97,21 @@ export const DoctorController = {
         mustChangePassword: true,
         activationCode,
         activationCodeExpiresAt: codeExpiry.toISOString(),
+        patientCode: resolvedPatientCode,
       });
 
-      // Generate MRN
-      const mrn = `MRN-${Math.floor(100000 + Math.random() * 900000)}`;
+      // Generate MRN (falls back to the 6-digit access code if none supplied)
+      const resolvedMrn =
+        mrn && !/^\d{6}$/.test(String(mrn).trim())
+          ? String(mrn).trim()
+          : `MRN-${resolvedPatientCode}`;
       const resolvedPhoto = profilePhotoUrl || photo;
 
       // Create Patient Profile
       const newProfile = await PatientProfileRepository.create({
         patientId: newUser._id,
-        mrn,
+        patientCode: resolvedPatientCode,
+        mrn: resolvedMrn,
         assignedDoctorIds: [doctorId],
         preferredLanguage,
         dateOfBirth,
@@ -183,6 +220,7 @@ export const DoctorController = {
           _id: newUser._id,
           name: newUser.name,
           email: newUser.email,
+          patientCode: newUser.patientCode,
           mrn: newProfile.mrn,
           profilePhotoUrl: newProfile.profilePhotoUrl,
           faceVerificationEnrolled: newProfile.faceVerificationEnrolled,
@@ -194,9 +232,12 @@ export const DoctorController = {
         onboardingCredentials: {
           activationCode,
           temporaryPassword: tempPassword,
+          patientCode: resolvedPatientCode,
           activationExpiresAt: codeExpiry.toISOString(),
-          instructions: 'Provide the activation code and temporary password to the patient for initial onboarding.',
+          instructions: 'Provide the 6-digit patient code, activation code, and temporary password to the patient for onboarding.',
         },
+        // Mobile-facing link: opening this resolves the entire patient record.
+        accessUrl: `/api/v1/access/patient/${resolvedPatientCode}`,
         planId: initialPlan.planId,
       });
     } catch (err: any) {

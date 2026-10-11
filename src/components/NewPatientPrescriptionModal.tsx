@@ -145,7 +145,7 @@ export function NewPatientPrescriptionModal({ isOpen, onClose, onCreated }: NewP
       const response = await ApiService.createPatient({
         name: name.trim(),
         email: emailToUse,
-        mrn: patientId,
+        patientCode: patientId,
         dateOfBirth: '1980-01-01',
         gender: 'unspecified',
         primaryDiagnosis: 'Rehabilitation Protocol',
@@ -162,9 +162,11 @@ export function NewPatientPrescriptionModal({ isOpen, onClose, onCreated }: NewP
 
       setCreatedCredentials({
         patientName: response.patient.name,
+        patientCode: response.patient.patientCode || response.onboardingCredentials.patientCode,
         mrn: response.profile.mrn,
         activationCode: response.onboardingCredentials.activationCode,
         temporaryPassword: response.onboardingCredentials.temporaryPassword,
+        accessUrl: response.accessUrl,
       });
 
       onCreated(response);
@@ -179,9 +181,11 @@ export function NewPatientPrescriptionModal({ isOpen, onClose, onCreated }: NewP
     if (!createdCredentials) return;
     const text = `NeuroRehab Connect Credentials
 Name: ${createdCredentials.patientName}
-ID: ${createdCredentials.mrn}
+6-Digit Patient Code: ${createdCredentials.patientCode}
+MRN: ${createdCredentials.mrn}
 Activation Code: ${createdCredentials.activationCode}
-Password: ${createdCredentials.temporaryPassword}`;
+Password: ${createdCredentials.temporaryPassword}
+App Access Link: ${ApiService.getPatientAccessUrl(createdCredentials.patientCode)}`;
     navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
@@ -217,6 +221,12 @@ Password: ${createdCredentials.temporaryPassword}`;
             </div>
             
             <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-4 max-w-md mx-auto text-left">
+              <div>
+                <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">6-Digit Patient Code (App Login Key)</span>
+                <div className="mt-1 px-4 py-3 bg-white rounded-xl border border-slate-200 font-mono text-2xl font-black text-indigo-700 text-center tracking-[0.3em] shadow-sm">
+                  {createdCredentials.patientCode}
+                </div>
+              </div>
               <div>
                 <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">Activation Code (for App)</span>
                 <div className="mt-1 px-4 py-3 bg-white rounded-xl border border-slate-200 font-mono text-lg font-bold text-blue-700 text-center shadow-sm">

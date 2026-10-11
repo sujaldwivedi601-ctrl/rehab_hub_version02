@@ -44,10 +44,21 @@ export const UserRepository = {
       lastLoginAt: data.lastLoginAt,
       gender: data.gender,
       profilePic: data.profilePic,
+      specialty: data.specialty,
+      hospital: data.hospital,
+      licenseNumber: data.licenseNumber,
+      phone: data.phone,
+      patientCode: data.patientCode,
     };
     dbStore.getState().users.push(newUser);
     dbStore.saveToFile();
     return { ...newUser };
+  },
+
+  async findByPatientCode(code: string): Promise<IUser | null> {
+    const normalized = String(code).trim();
+    const user = dbStore.getState().users.find((u) => u.patientCode === normalized);
+    return user ? { ...user } : null;
   },
 
   async update(id: string, updates: Partial<IUser>): Promise<IUser | null> {
@@ -66,12 +77,38 @@ export const UserRepository = {
   async list(): Promise<IUser[]> {
     return dbStore.getState().users.map((u) => ({ ...u }));
   },
+
+  async listByRole(role: string): Promise<IUser[]> {
+    return dbStore
+      .getState()
+      .users.filter((u) => u.role === role)
+      .map((u) => ({ ...u }));
+  },
+
+  async delete(id: string): Promise<boolean> {
+    const idx = dbStore.getState().users.findIndex((u) => u._id === id);
+    if (idx === -1) return false;
+    dbStore.getState().users.splice(idx, 1);
+    dbStore.saveToFile();
+    return true;
+  },
 };
 
 export const PatientProfileRepository = {
   async findByPatientId(patientId: string): Promise<IPatientProfile | null> {
     const profile = dbStore.getState().patientProfiles.find((p) => p.patientId === patientId);
     return profile ? { ...profile } : null;
+  },
+
+  async findByCode(code: string): Promise<IPatientProfile | null> {
+    const normalized = String(code).trim();
+    const profile = dbStore.getState().patientProfiles.find((p) => p.patientCode === normalized);
+    return profile ? { ...profile } : null;
+  },
+
+  async isCodeTaken(code: string): Promise<boolean> {
+    const normalized = String(code).trim();
+    return dbStore.getState().patientProfiles.some((p) => p.patientCode === normalized);
   },
 
   async findByDoctorId(doctorId: string): Promise<IPatientProfile[]> {
@@ -81,11 +118,16 @@ export const PatientProfileRepository = {
       .map((p) => ({ ...p }));
   },
 
+  async list(): Promise<IPatientProfile[]> {
+    return dbStore.getState().patientProfiles.map((p) => ({ ...p }));
+  },
+
   async create(data: Partial<IPatientProfile>): Promise<IPatientProfile> {
     const now = new Date().toISOString();
     const newProfile: IPatientProfile = {
       _id: data._id || `prof_${uuidv4().replace(/-/g, '').slice(0, 12)}`,
       patientId: data.patientId!,
+      patientCode: data.patientCode,
       mrn: data.mrn || `MRN-${Math.floor(100000 + Math.random() * 900000)}`,
       assignedDoctorIds: data.assignedDoctorIds || [],
       preferredLanguage: data.preferredLanguage || 'en',
@@ -152,6 +194,18 @@ export const RehabilitationPlanRepository = {
       .map((p) => ({ ...p }));
   },
 
+  async findByPlanId(planId: string): Promise<IRehabilitationPlan | null> {
+    const plan = dbStore.getState().rehabilitationPlans.find((p) => p.planId === planId);
+    return plan ? { ...plan } : null;
+  },
+
+  async list(options?: { patientId?: string; status?: string }): Promise<IRehabilitationPlan[]> {
+    let items = dbStore.getState().rehabilitationPlans;
+    if (options?.patientId) items = items.filter((p) => p.patientId === options.patientId);
+    if (options?.status) items = items.filter((p) => p.status === options.status);
+    return items.map((p) => ({ ...p }));
+  },
+
   async create(data: Partial<IRehabilitationPlan>): Promise<IRehabilitationPlan> {
     const now = new Date().toISOString();
     const newPlan: IRehabilitationPlan = {
@@ -187,6 +241,14 @@ export const RehabilitationPlanRepository = {
     dbStore.saveToFile();
     return { ...dbStore.getState().rehabilitationPlans[index] };
   },
+
+  async delete(planId: string): Promise<boolean> {
+    const idx = dbStore.getState().rehabilitationPlans.findIndex((p) => p.planId === planId);
+    if (idx === -1) return false;
+    dbStore.getState().rehabilitationPlans.splice(idx, 1);
+    dbStore.saveToFile();
+    return true;
+  },
 };
 
 export const ExerciseSessionRepository = {
@@ -216,6 +278,54 @@ export const ExerciseSessionRepository = {
     const paginated = items.slice(skip, skip + limit);
 
     return { sessions: paginated.map((s) => ({ ...s })), total };
+  },
+
+  async findById(id: string): Promise<IExerciseSession | null> {
+    const session = dbStore
+      .getState()
+      .exerciseSessions.find((s) => s._id === id || s.sessionId === id);
+    return session ? { ...session } : null;
+  },
+
+  async list(options?: { patientId?: string; exerciseId?: string; limit?: number; skip?: number; from?: string; to?: string }): Promise<{ sessions: IExerciseSession[]; total: number }> {
+    let items = dbStore.getState().exerciseSessions.slice();
+    if (options?.patientId) items = items.filter((s) => s.patientId === options.patientId);
+    if (options?.exerciseId) items = items.filter((s) => s.exerciseId === options.exerciseId);
+    if (options?.from) items = items.filter((s) => s.startedAt >= options.from!);
+    if (options?.to) items = items.filter((s) => s.startedAt <= options.to!);
+
+    items.sort((a, b) => new Date(b.startedAt).getTime() - new Date(a.startedAt).getTime());
+
+    const total = items.length;
+    const skip = options?.skip || 0;
+    const limit = options?.limit || 100;
+    return { sessions: items.slice(skip, skip + limit).map((s) => ({ ...s })), total };
+  },
+
+  async update(sessionId: string, updates: Partial<IExerciseSession>): Promise<IExerciseSession | null> {
+    const idx = dbStore
+      .getState()
+      .exerciseSessions.findIndex((s) => s.sessionId === sessionId || s._id === sessionId);
+    if (idx === -1) return null;
+    dbStore.getState().exerciseSessions[idx] = {
+      ...dbStore.getState().exerciseSessions[idx],
+      ...updates,
+      _id: dbStore.getState().exerciseSessions[idx]._id,
+      sessionId: dbStore.getState().exerciseSessions[idx].sessionId,
+      syncedAt: new Date().toISOString(),
+    };
+    dbStore.saveToFile();
+    return { ...dbStore.getState().exerciseSessions[idx] };
+  },
+
+  async delete(sessionId: string): Promise<boolean> {
+    const idx = dbStore
+      .getState()
+      .exerciseSessions.findIndex((s) => s.sessionId === sessionId || s._id === sessionId);
+    if (idx === -1) return false;
+    dbStore.getState().exerciseSessions.splice(idx, 1);
+    dbStore.saveToFile();
+    return true;
   },
 
   async create(data: Partial<IExerciseSession>): Promise<IExerciseSession> {
@@ -276,6 +386,55 @@ export const CognitiveGameSessionRepository = {
     const paginated = items.slice(skip, skip + limit);
 
     return { sessions: paginated.map((s) => ({ ...s })), total };
+  },
+
+  async findById(id: string): Promise<ICognitiveGameSession | null> {
+    const session = dbStore
+      .getState()
+      .cognitiveGameSessions.find((s) => s._id === id || s.sessionId === id);
+    return session ? { ...session } : null;
+  },
+
+  async list(options?: { patientId?: string; gameId?: string; cognitiveDomain?: string; limit?: number; skip?: number; from?: string; to?: string }): Promise<{ sessions: ICognitiveGameSession[]; total: number }> {
+    let items = dbStore.getState().cognitiveGameSessions.slice();
+    if (options?.patientId) items = items.filter((s) => s.patientId === options.patientId);
+    if (options?.gameId) items = items.filter((s) => s.gameId === options.gameId);
+    if (options?.cognitiveDomain) items = items.filter((s) => s.cognitiveDomain === options.cognitiveDomain);
+    if (options?.from) items = items.filter((s) => s.startedAt >= options.from!);
+    if (options?.to) items = items.filter((s) => s.startedAt <= options.to!);
+
+    items.sort((a, b) => new Date(b.startedAt).getTime() - new Date(a.startedAt).getTime());
+
+    const total = items.length;
+    const skip = options?.skip || 0;
+    const limit = options?.limit || 100;
+    return { sessions: items.slice(skip, skip + limit).map((s) => ({ ...s })), total };
+  },
+
+  async update(sessionId: string, updates: Partial<ICognitiveGameSession>): Promise<ICognitiveGameSession | null> {
+    const idx = dbStore
+      .getState()
+      .cognitiveGameSessions.findIndex((s) => s.sessionId === sessionId || s._id === sessionId);
+    if (idx === -1) return null;
+    dbStore.getState().cognitiveGameSessions[idx] = {
+      ...dbStore.getState().cognitiveGameSessions[idx],
+      ...updates,
+      _id: dbStore.getState().cognitiveGameSessions[idx]._id,
+      sessionId: dbStore.getState().cognitiveGameSessions[idx].sessionId,
+      syncedAt: new Date().toISOString(),
+    };
+    dbStore.saveToFile();
+    return { ...dbStore.getState().cognitiveGameSessions[idx] };
+  },
+
+  async delete(sessionId: string): Promise<boolean> {
+    const idx = dbStore
+      .getState()
+      .cognitiveGameSessions.findIndex((s) => s.sessionId === sessionId || s._id === sessionId);
+    if (idx === -1) return false;
+    dbStore.getState().cognitiveGameSessions.splice(idx, 1);
+    dbStore.saveToFile();
+    return true;
   },
 
   async create(data: Partial<ICognitiveGameSession>): Promise<ICognitiveGameSession> {

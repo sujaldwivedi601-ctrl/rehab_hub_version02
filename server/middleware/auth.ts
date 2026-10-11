@@ -85,3 +85,13 @@ export async function authorizeDoctorForPatient(
   if (!profile) return false;
   return profile.assignedDoctorIds.includes(doctorId);
 }
+
+// Resolve whether the authenticated user may read/act on a given patient's record.
+// admins: all patients. doctors: assigned patients only. patients: themselves only.
+export async function authorizePatientAccess(user: IUser, patientId: string): Promise<boolean> {
+  if (!user) return false;
+  if (user.role === 'admin') return true;
+  if (user.role === 'patient') return user._id === patientId;
+  if (user.role === 'doctor') return authorizeDoctorForPatient(user._id, patientId);
+  return false;
+}

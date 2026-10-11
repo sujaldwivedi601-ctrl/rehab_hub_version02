@@ -341,6 +341,10 @@ export const AuthController = {
         accountStatus: 'active',
         gender: gender || 'Other',
         profilePic: profilePic,
+        specialty: specialty || 'Neurology & Neurorehabilitation',
+        hospital: hospital || 'Clinical Neurology Center',
+        licenseNumber: licenseNumber || 'LIC-2026-MD',
+        phone: phone || '',
       } as any);
 
       const accessToken = generateAccessToken(user);
@@ -397,6 +401,13 @@ export const AuthController = {
           role: req.user.role,
           accountStatus: req.user.accountStatus,
           lastLoginAt: req.user.lastLoginAt,
+          gender: req.user.gender,
+          profilePic: req.user.profilePic,
+          specialty: req.user.specialty,
+          hospital: req.user.hospital,
+          licenseNumber: req.user.licenseNumber,
+          phone: req.user.phone,
+          patientCode: req.user.patientCode,
         },
       });
     } catch (err: any) {
@@ -411,9 +422,15 @@ export const AuthController = {
         res.status(401).json({ error: 'Unauthorized', message: 'Authentication required' });
         return;
       }
-      const { name } = req.body;
+      const { name, specialty, hospital, licenseNumber, phone, gender, profilePic } = req.body;
       const updated = await UserRepository.update(req.user._id, {
         name: name || req.user.name,
+        specialty: specialty !== undefined ? specialty : req.user.specialty,
+        hospital: hospital !== undefined ? hospital : req.user.hospital,
+        licenseNumber: licenseNumber !== undefined ? licenseNumber : req.user.licenseNumber,
+        phone: phone !== undefined ? phone : req.user.phone,
+        gender: gender !== undefined ? gender : req.user.gender,
+        profilePic: profilePic !== undefined ? profilePic : req.user.profilePic,
       });
       res.json({ message: 'Profile updated successfully', user: updated });
     } catch (err: any) {

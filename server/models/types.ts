@@ -16,11 +16,19 @@ export interface IUser {
   lastLoginAt?: string;
   gender?: string;
   profilePic?: string;
+  specialty?: string;
+  hospital?: string;
+  licenseNumber?: string;
+  phone?: string;
+  // 6-digit patient access code. Acts as the external primary key for a
+  // patient's entire record (profile, plan, activities, diet, sessions).
+  patientCode?: string;
 }
 
 export interface IPatientProfile {
   _id: string;
   patientId: string; // Foreign key to User._id
+  patientCode?: string; // Unique 6-digit access code (external primary key)
   mrn: string; // Medical Record Number / Patient Identifier
   assignedDoctorIds: string[];
   preferredLanguage: string;

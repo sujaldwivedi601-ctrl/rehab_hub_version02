@@ -5,6 +5,7 @@ import {
   ExerciseSessionRepository,
   CognitiveGameSessionRepository,
 } from '../models/repositories.js';
+import { dbStore } from './connection.js';
 import { hashPassword } from '../utils/jwt.js';
 
 export async function seedInitialData(): Promise<void> {
@@ -37,10 +38,12 @@ export async function seedInitialData(): Promise<void> {
     passwordHash: defaultPasswordHash,
     role: 'patient',
     accountStatus: 'active',
+    patientCode: '482019',
   });
 
   await PatientProfileRepository.create({
     patientId: patientAlex._id,
+    patientCode: '482019',
     mrn: 'MRN-482019',
     assignedDoctorIds: [doctor._id],
     preferredLanguage: 'en',
@@ -189,10 +192,12 @@ export async function seedInitialData(): Promise<void> {
     mustChangePassword: true,
     activationCode: 'ACT-9421-8832',
     activationCodeExpiresAt: new Date(now + 14 * 86400000).toISOString(),
+    patientCode: '912440',
   });
 
   await PatientProfileRepository.create({
     patientId: patientMaya._id,
+    patientCode: '912440',
     mrn: 'MRN-912440',
     assignedDoctorIds: [doctor._id],
     preferredLanguage: 'en',
@@ -230,4 +235,49 @@ export async function seedInitialData(): Promise<void> {
   });
 
   console.log('Seed completed successfully: Dr. Sarah Chen, Alex Rivera (active), Maya Lin (pending activation).');
+}
+
+// Backfill a unique 6-digit `patientCode` onto any legacy patient records that
+// predate the code-based access layer. The code becomes the external primary
+// key used by the mobile app to resolve a patient's entire record.
+export async function migratePatientCodes(): Promise<void> {
+  const state = dbStore.getState();
+  const used = new Set(
+    state.patientProfiles.map((p) => p.patientCode).filter((c): c is string => !!c)
+  );
+
+  function extractCode(profile: any, user: any): string | null {
+    const fromNotes = /6-?Digit\s*ID\s*:\s*(\d{6})/i.exec(profile?.clinicalNotes || '');
+    if (fromNotes) return fromNotes[1];
+
+    const localPart = (user?.email || '').split('@')[0] || '';
+    const fromEmail = /(\d{6})/.exec(localPart);
+    if (fromEmail) return fromEmail[1];
+
+    const fromMrn = /(\d{6})/.exec(profile?.mrn || '');
+    if (fromMrn) return fromMrn[1];
+
+    return null;
+  }
+
+  let changed = false;
+  for (const profile of state.patientProfiles) {
+    if (profile.patientCode) continue;
+    const user = state.users.find((u) => u._id === profile.patientId);
+
+    let code = extractCode(profile, user);
+    if (!code || used.has(code)) {
+      do {
+        code = String(Math.floor(100000 + Math.random() * 900000));
+      } while (used.has(code));
+    }
+
+    profile.patientCode = code;
+    used.add(code);
+    if (user) user.patientCode = code;
+    changed = true;
+    console.log(`Assigned patient code ${code} to ${user?.name || profile.patientId}`);
+  }
+
+  if (changed) dbStore.saveToFile();
 }
